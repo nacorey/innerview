@@ -21,7 +21,7 @@
   "reverseItems": [],
   "chartConfig": {
     "primary": "line",
-    "secondary": ["radar", "bar"],
+    "secondary": ["radar"],
     "maxScore": 30
   },
   "questions": [
