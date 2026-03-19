@@ -65,13 +65,13 @@ export function IntroScreen({ config, onStart }: Props) {
         <div
           className="mt-8 grid gap-2"
           style={{
-            gridTemplateColumns: `repeat(${Math.min(categories.length, 5)}, 1fr)`,
+            gridTemplateColumns: `repeat(${Math.min(categories.length, 5)}, minmax(0, 1fr))`,
           }}
         >
           {categories.map(([key, interp], i) => (
             <div
               key={key}
-              className="rounded-[10px] py-3 px-1 text-center transition-all duration-500"
+              className="rounded-[10px] py-3 px-1 text-center transition-all duration-500 overflow-hidden"
               style={{
                 background: `${interp.color}15`,
                 border: `1px solid ${interp.color}30`,
@@ -81,10 +81,10 @@ export function IntroScreen({ config, onStart }: Props) {
               }}
             >
               <div className="text-xl mb-1">{interp.icon}</div>
-              <div className="text-[13px] font-bold" style={{ color: interp.color }}>
+              <div className="text-[11px] sm:text-[13px] font-bold truncate px-0.5" style={{ color: interp.color }}>
                 {interp.name}
               </div>
-              <div className="text-[10.5px] text-ink-inverse/40 mt-0.5">
+              <div className="text-[9px] sm:text-[10.5px] text-ink-inverse/40 mt-0.5 truncate px-0.5">
                 {interp.nameEn}
               </div>
             </div>
