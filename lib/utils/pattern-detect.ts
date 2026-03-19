@@ -55,6 +55,42 @@ export function detectEgogramPattern(scores: Record<string, number>): string {
   return "혼합형";
 }
 
+/**
+ * BFI-2 Big Five 패턴 자동 판별
+ * 가장 높은 성격 요인 기반으로 패턴을 분류한다.
+ */
+
+const BFI_CATEGORY_ORDER = [
+  "Extraversion",
+  "Agreeableness",
+  "Conscientiousness",
+  "NegativeEmotionality",
+  "OpenMindedness",
+];
+
+const BFI_PATTERN_MAP: Record<string, string> = {
+  Extraversion: "활동적 외향형",
+  Agreeableness: "관계 지향형",
+  Conscientiousness: "목표 달성형",
+  NegativeEmotionality: "감성 민감형",
+  OpenMindedness: "탐구 개방형",
+};
+
+export function detectBFIPattern(scores: Record<string, number>): string {
+  const values = BFI_CATEGORY_ORDER.map((k) => scores[k] ?? 0);
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+
+  // 균형형: 편차가 작은 경우
+  if (max - min <= 4) return "균형 조화형";
+
+  // 최고점 요인 찾기
+  const maxIdx = values.indexOf(max);
+  const maxKey = BFI_CATEGORY_ORDER[maxIdx];
+
+  return BFI_PATTERN_MAP[maxKey] ?? "복합 성향형";
+}
+
 export function detectPattern(
   patternType: string,
   scores: Record<string, number>
@@ -62,6 +98,8 @@ export function detectPattern(
   switch (patternType) {
     case "egogram":
       return detectEgogramPattern(scores);
+    case "bigfive":
+      return detectBFIPattern(scores);
     default:
       return undefined;
   }
