@@ -85,7 +85,7 @@ export function IntroScreen({ config, onStart }: Props) {
                 {interp.name}
               </div>
               <div className="text-[10.5px] text-ink-inverse/40 mt-0.5">
-                {interp.fullName}
+                {interp.nameEn}
               </div>
             </div>
           ))}
