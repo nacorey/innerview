@@ -58,16 +58,16 @@ export default function ResultDetailPage() {
   return (
     <div>
       <ResultScreen config={config} scores={result.scores} patternType={result.patternType} />
-      <div className="mx-auto max-w-3xl px-4 pb-12 flex justify-center gap-3">
+      <div className="mx-auto max-w-[720px] px-6 pb-12 flex justify-center gap-3">
         <Link
           href="/my"
-          className="rounded-lg border border-foreground/10 px-5 py-2.5 text-sm font-medium text-foreground/60 hover:bg-foreground/5"
+          className="rounded-xl border border-edge px-5 py-2.5 text-sm font-medium text-ink-secondary hover:bg-surface-sunken transition-colors"
         >
           마이페이지로
         </Link>
         <Link
           href={`/tools/${result.toolSlug}`}
-          className="rounded-lg bg-amber-brand px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-brand/90"
+          className="rounded-xl bg-amber-brand px-5 py-2.5 text-sm font-bold text-white hover:bg-amber-brand/90 transition-colors"
         >
           다시 진단하기
         </Link>

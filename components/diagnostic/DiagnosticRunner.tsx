@@ -124,12 +124,12 @@ export function DiagnosticRunner({ config, userId, workshopId, onComplete }: Pro
             scores={scores}
             patternType={patternType}
           />
-          <div className="max-w-[700px] mx-auto px-5 pb-12 text-center print:hidden">
+          <div className="max-w-[720px] mx-auto px-6 pb-12 text-center print:hidden">
             <button
               onClick={handleRestart}
-              className="text-sm font-bold text-[#495057] bg-white border-[1.5px] border-[#dee2e6] rounded-[14px] px-8 py-3.5 hover:bg-[#f8f9fa] transition-colors"
+              className="text-sm font-bold text-ink-secondary bg-surface-raised border-[1.5px] border-edge rounded-xl px-8 py-3.5 hover:bg-surface-sunken transition-colors"
             >
-              🔄 다시 진단하기
+              다시 진단하기
             </button>
           </div>
         </div>

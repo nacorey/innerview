@@ -18,7 +18,7 @@ export function IntroScreen({ config, onStart }: Props) {
   const estimatedMinutes = Math.ceil(config.questions.length * 0.3);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] p-6">
+    <div className="min-h-screen flex items-center justify-center bg-surface-dark grain p-6">
       <div
         className="max-w-[560px] w-full text-center transition-all duration-700 ease-out"
         style={{
@@ -45,18 +45,18 @@ export function IntroScreen({ config, onStart }: Props) {
         </div>
 
         {/* 제목 */}
-        <h1 className="text-[42px] font-black text-white tracking-tight leading-tight">
+        <h1 className="text-[42px] font-black text-ink-inverse tracking-tight leading-tight">
           {config.name}
         </h1>
         {config.nameEn && (
-          <p className="mt-2 text-[15px] text-white/40 tracking-[4px] uppercase">
+          <p className="mt-2 text-[15px] text-ink-muted tracking-[4px] uppercase font-display">
             {config.nameEn}
           </p>
         )}
 
         {/* 설명 카드 */}
-        <div className="mt-9 bg-white/[0.06] backdrop-blur-xl rounded-2xl p-7 border border-white/[0.08] text-left">
-          <p className="text-[14.5px] leading-[1.8] text-white/75">
+        <div className="mt-9 bg-ink-inverse/[0.06] backdrop-blur-xl rounded-2xl p-7 border border-ink-inverse/[0.08] text-left">
+          <p className="text-[14.5px] leading-[1.8] text-ink-inverse/75">
             {config.description}
           </p>
         </div>
@@ -84,7 +84,7 @@ export function IntroScreen({ config, onStart }: Props) {
               <div className="text-[13px] font-bold" style={{ color: interp.color }}>
                 {interp.name}
               </div>
-              <div className="text-[10.5px] text-white/40 mt-0.5">
+              <div className="text-[10.5px] text-ink-inverse/40 mt-0.5">
                 {interp.fullName}
               </div>
             </div>
@@ -92,16 +92,18 @@ export function IntroScreen({ config, onStart }: Props) {
         </div>
 
         {/* 정보 */}
-        <div className="flex justify-center gap-6 mt-7 text-[13px] text-white/40">
-          <span>📋 {config.questions.length}문항</span>
-          <span>⏱ 약 {estimatedMinutes}분</span>
-          <span>📊 즉시 결과</span>
+        <div className="flex justify-center gap-6 mt-7 text-[13px] text-ink-muted font-display">
+          <span>{config.questions.length}문항</span>
+          <span className="text-ink-muted/40">·</span>
+          <span>약 {estimatedMinutes}분</span>
+          <span className="text-ink-muted/40">·</span>
+          <span>즉시 결과</span>
         </div>
 
         {/* CTA */}
         <button
           onClick={onStart}
-          className="mt-7 text-base font-bold text-[#1a1a2e] bg-gradient-to-br from-[#F39C12] to-[#E67E22] rounded-[14px] px-14 py-4 shadow-[0_4px_24px_rgba(243,156,18,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(243,156,18,0.4)]"
+          className="mt-7 text-base font-bold text-surface-dark bg-gradient-to-br from-amber-brand to-[#E67E22] rounded-xl px-14 py-4 shadow-[0_4px_24px_rgba(243,156,18,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(243,156,18,0.4)]"
         >
           진단 시작하기
         </button>

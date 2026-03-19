@@ -22,8 +22,8 @@ export function ScaleSelector({ options, value, onChange }: Props) {
             onClick={() => onChange(opt.value)}
             className={`rounded-[10px] border-[1.5px] py-2.5 px-1 text-xs leading-tight transition-all duration-200 ${
               selected
-                ? "bg-gradient-to-br from-[#F39C12] to-[#E67E22] border-[#E67E22] text-white font-bold"
-                : "bg-[#f8f9fa] border-[#dee2e6] text-[#495057] font-medium hover:bg-[#e9ecef]"
+                ? "bg-gradient-to-br from-amber-brand to-[#E67E22] border-amber-brand text-white font-bold"
+                : "bg-surface border-edge text-ink-secondary font-medium hover:bg-surface-sunken"
             }`}
           >
             {opt.emoji && <div className="text-lg mb-0.5">{opt.emoji}</div>}

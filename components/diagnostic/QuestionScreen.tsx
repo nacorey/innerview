@@ -57,20 +57,20 @@ export function QuestionScreen({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef]">
+    <div className="min-h-screen bg-gradient-to-b from-surface to-surface-sunken">
       {/* Progress Bar — sticky */}
-      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[#e9ecef] px-6 py-3">
+      <div className="sticky top-0 z-50 bg-surface-raised/95 backdrop-blur-sm border-b border-edge px-6 py-3">
         <div className="max-w-[640px] mx-auto flex items-center gap-4">
-          <span className="text-[13px] text-[#868e96] font-semibold whitespace-nowrap">
+          <span className="text-[13px] text-ink-tertiary font-semibold font-display whitespace-nowrap">
             {totalAnswered}/{config.questions.length}
           </span>
-          <div className="flex-1 h-1.5 bg-[#e9ecef] rounded-full overflow-hidden">
+          <div className="flex-1 h-1.5 bg-edge-subtle rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#F39C12] to-[#E67E22] rounded-full transition-all duration-400"
+              className="h-full bg-gradient-to-r from-amber-brand to-[#E67E22] rounded-full transition-all duration-400"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <span className="text-[13px] text-[#868e96] font-semibold whitespace-nowrap">
+          <span className="text-[13px] text-ink-tertiary font-semibold font-display whitespace-nowrap">
             {currentPage + 1}/{totalPages}
           </span>
         </div>
@@ -91,21 +91,23 @@ export function QuestionScreen({
           return (
             <div
               key={idx}
-              className={`bg-white rounded-2xl p-6 mb-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 ${
-                isAnswered ? "border-2 border-[#F39C12]/25" : "border-2 border-transparent"
+              className={`bg-surface-raised rounded-2xl p-6 mb-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 ${
+                isAnswered
+                  ? "border-2 border-amber-brand/25"
+                  : "border-2 border-transparent"
               }`}
             >
               <div className="flex gap-3 mb-4 items-start">
                 <span
-                  className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-[13px] font-bold shrink-0 transition-all duration-300 ${
+                  className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-[13px] font-bold font-display shrink-0 transition-all duration-300 ${
                     isAnswered
-                      ? "bg-[#F39C12] text-white"
-                      : "bg-[#e9ecef] text-[#868e96]"
+                      ? "bg-amber-brand text-white"
+                      : "bg-edge-subtle text-ink-tertiary"
                   }`}
                 >
                   {startIdx + i + 1}
                 </span>
-                <p className="text-[15px] leading-relaxed text-[#343a40] font-medium pt-1">
+                <p className="text-[15px] leading-relaxed text-ink font-medium pt-1">
                   {q.text}
                 </p>
               </div>
@@ -130,13 +132,15 @@ export function QuestionScreen({
       </div>
 
       {/* Navigation — fixed bottom */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-[#e9ecef] px-6 py-4 z-50">
+      <div className="fixed bottom-0 left-0 right-0 bg-surface-raised/95 backdrop-blur-sm border-t border-edge px-6 py-4 z-50">
         <div className="max-w-[640px] mx-auto flex justify-between gap-3">
           <button
             onClick={() => changePage("prev")}
             disabled={currentPage === 0}
-            className={`rounded-xl border-[1.5px] border-[#dee2e6] px-6 py-3 text-sm font-semibold transition-colors ${
-              currentPage === 0 ? "text-[#ced4da] cursor-default" : "text-[#495057] bg-[#f8f9fa] hover:bg-[#e9ecef]"
+            className={`rounded-xl border-[1.5px] border-edge px-6 py-3 text-sm font-semibold transition-colors ${
+              currentPage === 0
+                ? "text-ink-muted cursor-default"
+                : "text-ink-secondary bg-surface hover:bg-surface-sunken"
             }`}
           >
             ← 이전
@@ -148,19 +152,19 @@ export function QuestionScreen({
               disabled={totalAnswered < config.questions.length}
               className={`rounded-xl px-8 py-3 text-sm font-bold border-none transition-all duration-300 ${
                 totalAnswered >= config.questions.length
-                  ? "bg-gradient-to-br from-[#27AE60] to-[#2ECC71] text-white shadow-lg"
-                  : "bg-[#e9ecef] text-[#868e96] cursor-default"
+                  ? "bg-gradient-to-br from-teal-brand to-[#2ECC71] text-white shadow-lg"
+                  : "bg-edge-subtle text-ink-tertiary cursor-default"
               }`}
             >
-              결과 보기 ✨
+              결과 보기
             </button>
           ) : (
             <button
               onClick={() => changePage("next")}
               className={`rounded-xl px-8 py-3 text-sm font-bold border-none transition-all duration-300 ${
                 allAnswered
-                  ? "bg-gradient-to-br from-[#F39C12] to-[#E67E22] text-white"
-                  : "bg-[#e9ecef] text-[#868e96]"
+                  ? "bg-gradient-to-br from-amber-brand to-[#E67E22] text-white"
+                  : "bg-edge-subtle text-ink-tertiary"
               }`}
             >
               다음 →

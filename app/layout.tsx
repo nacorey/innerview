@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR, JetBrains_Mono } from "next/font/google";
+import { Noto_Sans_KR, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
   variable: "--font-noto-sans-kr",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -25,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${notoSansKR.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${notoSansKR.variable} ${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
