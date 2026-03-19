@@ -61,6 +61,7 @@ export interface ChartConfig {
   primary: ChartType;
   secondary?: ChartType[];
   maxScore: number;
+  labels?: Record<string, string>;
   axisLabels?: {
     xLabel: string;
     yLabel: string;

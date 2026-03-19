@@ -76,7 +76,7 @@ function Reveal({
 }
 
 /* ── Chart renderer ── */
-const chartLabel: Record<string, string> = {
+const defaultChartLabel: Record<string, string> = {
   line: "프로파일",
   radar: "레이더",
   bar: "점수 비교",
@@ -225,7 +225,7 @@ export function ResultScreen({ config, scores, patternType }: Props) {
               <Reveal key={`${chartType}-${i}`} delay={i * 120}>
                 <div className="bg-surface-raised rounded-2xl p-7 mb-5 shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-edge-subtle">
                   <h3 className="text-sm font-bold text-ink mb-1">
-                    {chartLabel[chartType] ?? chartType}
+                    {config.chartConfig.labels?.[chartType] ?? defaultChartLabel[chartType] ?? chartType}
                   </h3>
                   {i === 0 && patternType && (
                     <p className="text-xs text-ink-tertiary mb-4">

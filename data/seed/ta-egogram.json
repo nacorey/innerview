@@ -22,7 +22,11 @@
   "chartConfig": {
     "primary": "line",
     "secondary": ["radar"],
-    "maxScore": 30
+    "maxScore": 30,
+    "labels": {
+      "line": "에고그램 프로파일",
+      "radar": "자아상태 레이더"
+    }
   },
   "questions": [
     { "id": 0, "text": "나는 사실과 데이터를 근거로 판단하려고 한다." },
