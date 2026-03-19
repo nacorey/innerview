@@ -245,6 +245,70 @@ export function ResultScreen({ config, scores, patternType }: Props) {
           );
         })}
 
+        {/* Insight Sections: Communication, Leadership, Summary */}
+        {patternType && config.patternConfig?.patterns[patternType] && (() => {
+          const pat = config.patternConfig!.patterns[patternType];
+          const hasInsights = pat.communicationStyle || pat.leadershipStyle || pat.overallSummary;
+          if (!hasInsights) return null;
+          return (
+            <>
+              {/* Communication Style */}
+              {pat.communicationStyle && (
+                <div className="bg-white rounded-[20px] p-7 mb-4 shadow-[0_2px_16px_rgba(0,0,0,0.04)]" style={{ borderLeft: "5px solid #3498DB" }}>
+                  <h3 className="text-base font-extrabold text-[#343a40] mb-3">💬 소통 스타일</h3>
+                  <p className="text-[13.5px] leading-[1.8] text-[#495057]">{pat.communicationStyle}</p>
+                </div>
+              )}
+
+              {/* Leadership Style */}
+              {pat.leadershipStyle && (
+                <div className="bg-white rounded-[20px] p-7 mb-4 shadow-[0_2px_16px_rgba(0,0,0,0.04)]" style={{ borderLeft: "5px solid #E67E22" }}>
+                  <h3 className="text-base font-extrabold text-[#343a40] mb-3">👑 리더십 스타일</h3>
+                  <p className="text-[13.5px] leading-[1.8] text-[#495057]">{pat.leadershipStyle}</p>
+                </div>
+              )}
+
+              {/* Overall Summary */}
+              {pat.overallSummary && (
+                <div className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-[20px] p-7 mb-4 text-white">
+                  <h3 className="text-base font-extrabold mb-3">📋 종합 의견</h3>
+                  <p className="text-sm leading-[1.9] text-white/85 mb-5">{pat.overallSummary}</p>
+
+                  {/* Strengths */}
+                  {pat.strengths && pat.strengths.length > 0 && (
+                    <div className="mb-4">
+                      <h4 className="text-[13px] font-bold text-[#2ECC71] mb-2">✅ 강점</h4>
+                      <ul className="space-y-1.5">
+                        {pat.strengths.map((s: string, i: number) => (
+                          <li key={i} className="text-[13px] text-white/75 flex items-start gap-2">
+                            <span className="text-[#2ECC71] mt-0.5 shrink-0">•</span>
+                            <span>{s}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Growth Areas */}
+                  {pat.growthAreas && pat.growthAreas.length > 0 && (
+                    <div>
+                      <h4 className="text-[13px] font-bold text-[#F39C12] mb-2">🌱 성장 포인트</h4>
+                      <ul className="space-y-1.5">
+                        {pat.growthAreas.map((g: string, i: number) => (
+                          <li key={i} className="text-[13px] text-white/75 flex items-start gap-2">
+                            <span className="text-[#F39C12] mt-0.5 shrink-0">•</span>
+                            <span>{g}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          );
+        })()}
+
         {/* Action Buttons */}
         <div className="flex gap-3 justify-center mt-8 flex-wrap">
           <button

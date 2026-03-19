@@ -78,6 +78,11 @@ export interface PatternDefinition {
   description: string;
   detailDescription: string;
   detectFn?: string;
+  communicationStyle?: string;
+  leadershipStyle?: string;
+  overallSummary?: string;
+  strengths?: string[];
+  growthAreas?: string[];
 }
 
 export interface DiagnosticResult {
