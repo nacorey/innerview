@@ -128,6 +128,9 @@
   ],
   "interpretations": {
     "V": {
+      "name": "시각형",
+      "fullName": "시각형 (Visual)",
+      "nameEn": "Visual",
       "label": "시각형 (Visual)",
       "color": "#4F46E5",
       "icon": "👁️",
@@ -139,6 +142,9 @@
       "threshold": 25
     },
     "A": {
+      "name": "청각형",
+      "fullName": "청각형 (Auditory)",
+      "nameEn": "Auditory",
       "label": "청각형 (Auditory)",
       "color": "#059669",
       "icon": "👂",
@@ -150,6 +156,9 @@
       "threshold": 25
     },
     "K": {
+      "name": "체감각형",
+      "fullName": "체감각형 (Kinesthetic)",
+      "nameEn": "Kinesthetic",
       "label": "체감각형 (Kinesthetic)",
       "color": "#DC2626",
       "icon": "✋",
@@ -161,6 +170,9 @@
       "threshold": 25
     },
     "D": {
+      "name": "내적대화형",
+      "fullName": "내적대화형 (Auditory Digital)",
+      "nameEn": "Auditory Digital",
       "label": "내적대화형 (Auditory Digital)",
       "color": "#7C3AED",
       "icon": "💭",
