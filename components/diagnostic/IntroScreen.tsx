@@ -64,13 +64,14 @@ export function IntroScreen({ config, onStart }: Props) {
         {/* 카테고리 그리드 */}
         {(() => {
           const count = categories.length;
-          // 6개: 3+3, 4개: 4열 가운데, 2개: 2열 가운데, 그 외: min(count,5)열
-          const cols = count === 6 ? 3 : count <= 4 ? count : Math.min(count, 5);
+          // 12개: 4×3, 6개: 3×2, 2개: 넓게 2열, 4개: 4열, 그 외: min(count,5)
+          const cols = count >= 12 ? 4 : count === 6 ? 3 : count <= 4 ? count : Math.min(count, 5);
+          const wide = count <= 2;
           return (
             <div
               className="mt-8 grid gap-2 justify-center"
               style={{
-                gridTemplateColumns: `repeat(${cols}, minmax(0, ${count <= 4 ? "120px" : "1fr"}))`,
+                gridTemplateColumns: `repeat(${cols}, minmax(0, ${wide ? "200px" : count <= 4 ? "120px" : "1fr"}))`,
               }}
             >
               {categories.map(([key, interp], i) => (
@@ -86,10 +87,10 @@ export function IntroScreen({ config, onStart }: Props) {
                   }}
                 >
                   <div className="text-xl mb-1">{interp.icon}</div>
-                  <div className="text-[11px] sm:text-[13px] font-bold truncate px-0.5" style={{ color: interp.color }}>
+                  <div className={`font-bold px-0.5 ${wide ? "text-[13px] sm:text-[14px]" : "text-[11px] sm:text-[13px] truncate"}`} style={{ color: interp.color }}>
                     {interp.name}
                   </div>
-                  <div className="text-[9px] sm:text-[10.5px] text-ink-inverse/40 mt-0.5 truncate px-0.5">
+                  <div className={`text-ink-inverse/40 mt-0.5 px-0.5 ${wide ? "text-[10px] sm:text-[11px]" : "text-[9px] sm:text-[10.5px] truncate"}`}>
                     {interp.nameEn}
                   </div>
                 </div>

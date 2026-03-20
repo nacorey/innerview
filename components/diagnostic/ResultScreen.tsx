@@ -211,7 +211,7 @@ export function ResultScreen({ config, scores, subScores, burnoutRisk, patternTy
         <div
           className="grid gap-3 justify-center"
           style={{
-            gridTemplateColumns: `repeat(${categoryKeys.length === 6 ? 3 : Math.min(categoryKeys.length, 5)}, ${categoryKeys.length <= 4 ? "minmax(0, 140px)" : "1fr"})`,
+            gridTemplateColumns: `repeat(${categoryKeys.length >= 12 ? 4 : categoryKeys.length === 6 ? 3 : Math.min(categoryKeys.length, 5)}, ${categoryKeys.length <= 2 ? "minmax(0, 200px)" : categoryKeys.length <= 4 ? "minmax(0, 140px)" : "1fr"})`,
           }}
         >
           {categoryKeys.map((cat, i) => {
