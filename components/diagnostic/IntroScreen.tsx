@@ -26,24 +26,6 @@ export function IntroScreen({ config, onStart }: Props) {
           transform: animate ? "translateY(0)" : "translateY(30px)",
         }}
       >
-        {/* 카테고리 아이콘 */}
-        <div className="flex justify-center gap-3 mb-8 text-4xl">
-          {categories.map(([key, interp], i) => (
-            <span
-              key={key}
-              className="transition-all duration-500"
-              style={{
-                opacity: animate ? 1 : 0,
-                transform: animate ? "scale(1)" : "scale(0)",
-                transitionDelay: `${300 + i * 100}ms`,
-                transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
-              }}
-            >
-              {interp.icon}
-            </span>
-          ))}
-        </div>
-
         {/* 제목 */}
         <h1 className="text-[42px] font-black text-ink-inverse tracking-tight leading-tight">
           {config.name}
