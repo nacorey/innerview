@@ -71,6 +71,8 @@
   ],
   "interpretations": {
     "경쟁": {
+      "name": "경쟁",
+      "fullName": "경쟁형",
       "nameEn": "Competing",
       "color": "#EF4444",
       "icon": "⚔️",
@@ -82,6 +84,8 @@
       "threshold": 18
     },
     "회피": {
+      "name": "회피",
+      "fullName": "회피형",
       "nameEn": "Avoiding",
       "color": "#6B7280",
       "icon": "🏃",
@@ -93,6 +97,8 @@
       "threshold": 18
     },
     "타협": {
+      "name": "타협",
+      "fullName": "타협형",
       "nameEn": "Compromising",
       "color": "#F59E0B",
       "icon": "🤝",
@@ -104,6 +110,8 @@
       "threshold": 18
     },
     "순응": {
+      "name": "순응",
+      "fullName": "순응형",
       "nameEn": "Accommodating",
       "color": "#3B82F6",
       "icon": "🕊️",
@@ -115,6 +123,8 @@
       "threshold": 18
     },
     "협력": {
+      "name": "협력",
+      "fullName": "협력형",
       "nameEn": "Collaborating",
       "color": "#10B981",
       "icon": "🤗",

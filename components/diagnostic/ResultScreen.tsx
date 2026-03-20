@@ -169,7 +169,7 @@ interface Props {
    ════════════════════════════════════════════════════════════ */
 export function ResultScreen({ config, scores, subScores, burnoutRisk, patternType }: Props) {
   const sortedCategories = Object.entries(scores).sort(([, a], [, b]) => b - a);
-  const categoryKeys = Object.keys(config.interpretations);
+  const categoryKeys = Object.keys(config.interpretations).filter((k) => !k.startsWith("_"));
   const maxCat = sortedCategories[0]?.[0];
   const minCat = sortedCategories[sortedCategories.length - 1]?.[0];
   const maxScore = config.chartConfig.maxScore;
@@ -209,9 +209,9 @@ export function ResultScreen({ config, scores, subScores, burnoutRisk, patternTy
       {/* ═══ SCORE CARDS ═══ */}
       <section className="max-w-[720px] mx-auto px-6 -mt-8 relative z-10">
         <div
-          className="grid gap-3"
+          className="grid gap-3 justify-center"
           style={{
-            gridTemplateColumns: `repeat(${Math.min(categoryKeys.length, 5)}, 1fr)`,
+            gridTemplateColumns: `repeat(${categoryKeys.length === 6 ? 3 : Math.min(categoryKeys.length, 5)}, ${categoryKeys.length <= 4 ? "minmax(0, 140px)" : "1fr"})`,
           }}
         >
           {categoryKeys.map((cat, i) => {

@@ -14,7 +14,7 @@ export function IntroScreen({ config, onStart }: Props) {
     setTimeout(() => setAnimate(true), 100);
   }, []);
 
-  const categories = Object.entries(config.interpretations);
+  const categories = Object.entries(config.interpretations).filter(([key]) => !key.startsWith("_"));
   const estimatedMinutes = Math.ceil(config.questions.length * 0.3);
 
   return (
@@ -62,34 +62,41 @@ export function IntroScreen({ config, onStart }: Props) {
         </div>
 
         {/* 카테고리 그리드 */}
-        <div
-          className="mt-8 grid gap-2"
-          style={{
-            gridTemplateColumns: `repeat(${Math.min(categories.length, 5)}, minmax(0, 1fr))`,
-          }}
-        >
-          {categories.map(([key, interp], i) => (
+        {(() => {
+          const count = categories.length;
+          // 6개: 3+3, 4개: 4열 가운데, 2개: 2열 가운데, 그 외: min(count,5)열
+          const cols = count === 6 ? 3 : count <= 4 ? count : Math.min(count, 5);
+          return (
             <div
-              key={key}
-              className="rounded-[10px] py-3 px-1 text-center transition-all duration-500 overflow-hidden"
+              className="mt-8 grid gap-2 justify-center"
               style={{
-                background: `${interp.color}15`,
-                border: `1px solid ${interp.color}30`,
-                opacity: animate ? 1 : 0,
-                transform: animate ? "translateY(0)" : "translateY(20px)",
-                transitionDelay: `${500 + i * 80}ms`,
+                gridTemplateColumns: `repeat(${cols}, minmax(0, ${count <= 4 ? "120px" : "1fr"}))`,
               }}
             >
-              <div className="text-xl mb-1">{interp.icon}</div>
-              <div className="text-[11px] sm:text-[13px] font-bold truncate px-0.5" style={{ color: interp.color }}>
-                {interp.name}
-              </div>
-              <div className="text-[9px] sm:text-[10.5px] text-ink-inverse/40 mt-0.5 truncate px-0.5">
-                {interp.nameEn}
-              </div>
+              {categories.map(([key, interp], i) => (
+                <div
+                  key={key}
+                  className="rounded-[10px] py-3 px-1 text-center transition-all duration-500 overflow-hidden"
+                  style={{
+                    background: `${interp.color}15`,
+                    border: `1px solid ${interp.color}30`,
+                    opacity: animate ? 1 : 0,
+                    transform: animate ? "translateY(0)" : "translateY(20px)",
+                    transitionDelay: `${500 + i * 80}ms`,
+                  }}
+                >
+                  <div className="text-xl mb-1">{interp.icon}</div>
+                  <div className="text-[11px] sm:text-[13px] font-bold truncate px-0.5" style={{ color: interp.color }}>
+                    {interp.name}
+                  </div>
+                  <div className="text-[9px] sm:text-[10.5px] text-ink-inverse/40 mt-0.5 truncate px-0.5">
+                    {interp.nameEn}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          );
+        })()}
 
         {/* 정보 */}
         <div className="flex justify-center gap-6 mt-7 text-[13px] text-ink-muted font-display">

@@ -186,7 +186,7 @@
 
   "interpretations": {
     "지시형": {
-      "name": "지시형 (Directing)",
+      "name": "지시형",
       "nameEn": "S1: Directing",
       "color": "#E24B4A",
       "bgColor": "#FCEBEB",
@@ -224,7 +224,7 @@
     },
 
     "코칭형": {
-      "name": "코칭형 (Coaching)",
+      "name": "코칭형",
       "nameEn": "S2: Coaching",
       "color": "#2E75B6",
       "bgColor": "#DEEAF6",
@@ -263,7 +263,7 @@
     },
 
     "지원형": {
-      "name": "지원형 (Supporting)",
+      "name": "지원형",
       "nameEn": "S3: Supporting",
       "color": "#1D9E75",
       "bgColor": "#E1F5EE",
@@ -302,7 +302,7 @@
     },
 
     "위임형": {
-      "name": "위임형 (Delegating)",
+      "name": "위임형",
       "nameEn": "S4: Delegating",
       "color": "#7030A0",
       "bgColor": "#E8D5F5",
