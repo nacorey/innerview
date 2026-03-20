@@ -64,25 +64,25 @@ export default function Home() {
         <div className="mx-auto max-w-4xl px-6 py-24 text-center">
           <h1 className="text-5xl sm:text-6xl font-black tracking-tight text-ink-inverse">
             <span className="relative inline-block">
-              {/* 넓은 빛 — 위에서 아래로 퍼지는 타원형 */}
+              {/* 넓은 빛 — 위에서 아래로 내리쬠 (광원이 위) */}
               <span
-                className="absolute left-1/2 -translate-x-1/2 -top-16 pointer-events-none"
+                className="absolute left-1/2 -translate-x-1/2 -top-12 pointer-events-none"
                 style={{
-                  width: 120,
-                  height: 100,
-                  background: "radial-gradient(ellipse 60% 80% at 50% 15%, rgba(243,156,18,0.35) 0%, rgba(243,156,18,0.08) 50%, transparent 80%)",
-                  filter: "blur(8px)",
+                  width: 140,
+                  height: 120,
+                  background: "radial-gradient(ellipse 50% 70% at 50% 0%, rgba(243,156,18,0.4) 0%, rgba(243,156,18,0.1) 45%, transparent 75%)",
+                  filter: "blur(6px)",
                   animation: "beamShimmer 3s ease-in-out infinite",
                 }}
               />
-              {/* 코어 글로우 — I 주변 집중 발광 */}
+              {/* 코어 글로우 — I 상단에 집중 (위에서 비추는 느낌) */}
               <span
-                className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none"
+                className="absolute left-1/2 -translate-x-1/2 -top-2 pointer-events-none"
                 style={{
-                  width: 48,
-                  height: 48,
-                  background: "radial-gradient(circle, rgba(243,156,18,0.5) 0%, transparent 70%)",
-                  filter: "blur(12px)",
+                  width: 40,
+                  height: 40,
+                  background: "radial-gradient(circle, rgba(243,156,18,0.55) 0%, transparent 70%)",
+                  filter: "blur(10px)",
                   animation: "glowPulse 3s ease-in-out infinite",
                 }}
               />
