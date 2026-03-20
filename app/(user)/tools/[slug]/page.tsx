@@ -7,7 +7,12 @@ import Link from "next/link";
 
 function saveResultToLocal(
   config: { slug: string; name: string; icon: string },
-  result: { scores: Record<string, number>; patternType?: string; completedAt: string }
+  result: {
+    scores: Record<string, number>;
+    subScores?: Record<string, { drive: number; behavioral: number; total: number }>;
+    patternType?: string;
+    completedAt: string;
+  }
 ) {
   try {
     const raw = localStorage.getItem("diag_results");
@@ -18,6 +23,7 @@ function saveResultToLocal(
       toolName: config.name,
       toolIcon: config.icon,
       scores: result.scores,
+      subScores: result.subScores,
       patternType: result.patternType,
       completedAt: result.completedAt,
     });

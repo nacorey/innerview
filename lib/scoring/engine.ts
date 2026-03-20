@@ -1,15 +1,48 @@
 import type { DiagnosticToolConfig } from "@/lib/types/diagnostic";
+import type { SplitCategoryMap, SplitScore, BurnoutRisk } from "@/lib/types/zone";
+import { calculateSplitLikert, detectBurnoutRisk } from "./split";
+
+export interface ScoreResult {
+  scores: Record<string, number>;
+  subScores?: Record<string, SplitScore>;
+  burnoutRisk?: BurnoutRisk[];
+}
 
 export function calculateScores(
   config: DiagnosticToolConfig,
   answers: Record<number, number | Record<string, number>>
-): Record<string, number> {
+): ScoreResult {
   switch (config.scaleType) {
     case "likert-4":
     case "likert-5":
-      return calculateLikert(config, answers as Record<number, number>);
+    case "likert-7":
+      return {
+        scores: calculateLikert(config, answers as Record<number, number>),
+      };
+
+    case "split-likert-5": {
+      const splitScores = calculateSplitLikert(
+        answers as Record<string, number>,
+        config.categoryMap as SplitCategoryMap,
+        config.reverseItems ?? [],
+        config.maxScale ?? 5
+      );
+      return {
+        scores: Object.fromEntries(
+          Object.entries(splitScores).map(([k, v]) => [k, v.total])
+        ),
+        subScores: splitScores,
+        burnoutRisk: detectBurnoutRisk(splitScores),
+      };
+    }
+
     case "rank-4":
-      return calculateRank(config, answers as Record<number, Record<string, number>>);
+      return {
+        scores: calculateRank(config, answers as Record<number, Record<string, number>>),
+      };
+
+    default:
+      return { scores: {} };
   }
 }
 
@@ -18,12 +51,16 @@ function calculateLikert(
   answers: Record<number, number>
 ): Record<string, number> {
   const scores: Record<string, number> = {};
+  const maxScale = config.maxScale ?? 5;
 
   for (const [category, indices] of Object.entries(config.categoryMap)) {
-    scores[category] = indices.reduce((sum, idx) => {
+    // split-likert categoryMap has { drive: [], behavioral: [] } — skip those here
+    if (!Array.isArray(indices)) continue;
+
+    scores[category] = (indices as number[]).reduce((sum: number, idx: number) => {
       const raw = answers[idx] ?? 0;
       const isReverse = config.reverseItems?.includes(idx) ?? false;
-      const score = isReverse ? (config.maxScale! + 1) - raw : raw;
+      const score = isReverse ? (maxScale + 1) - raw : raw;
       return sum + score;
     }, 0);
   }
@@ -40,7 +77,7 @@ function calculateRank(
 
   for (const ch of channels) {
     scores[ch] = Object.values(answers).reduce(
-      (sum, qAnswer) => sum + (qAnswer[ch] ?? 0),
+      (sum: number, qAnswer: Record<string, number>) => sum + (qAnswer[ch] ?? 0),
       0
     );
   }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { DiagnosticToolConfig, DiagnosticResult } from "@/lib/types/diagnostic";
+import type { SplitScore, BurnoutRisk } from "@/lib/types/zone";
 import { calculateScores } from "@/lib/scoring/engine";
 import { detectPattern } from "@/lib/utils/pattern-detect";
 import { IntroScreen } from "./IntroScreen";
@@ -26,6 +27,8 @@ export function DiagnosticRunner({ config, userId, workshopId, onComplete }: Pro
   const [answers, setAnswers] = useState<Record<number, number | Record<string, number>>>({});
   const [currentPage, setCurrentPage] = useState(0);
   const [scores, setScores] = useState<Record<string, number>>({});
+  const [subScores, setSubScores] = useState<Record<string, SplitScore> | undefined>();
+  const [burnoutRisk, setBurnoutRisk] = useState<BurnoutRisk[] | undefined>();
   const [patternType, setPatternType] = useState<string | undefined>();
 
   // localStorage에서 이전 답변 복원
@@ -65,12 +68,14 @@ export function DiagnosticRunner({ config, userId, workshopId, onComplete }: Pro
   };
 
   const handleSubmit = () => {
-    const calculatedScores = calculateScores(config, answers);
-    setScores(calculatedScores);
+    const result = calculateScores(config, answers);
+    setScores(result.scores);
+    setSubScores(result.subScores);
+    setBurnoutRisk(result.burnoutRisk);
 
     let detected: string | undefined;
     if (config.patternConfig) {
-      detected = detectPattern(config.patternConfig.type, calculatedScores);
+      detected = detectPattern(config.patternConfig.type, result.scores);
       setPatternType(detected);
     }
 
@@ -81,7 +86,8 @@ export function DiagnosticRunner({ config, userId, workshopId, onComplete }: Pro
       toolId: config.id,
       workshopId,
       answers,
-      scores: calculatedScores,
+      scores: result.scores,
+      subScores: result.subScores,
       patternType: detected,
       completedAt: new Date().toISOString(),
     });
@@ -93,6 +99,8 @@ export function DiagnosticRunner({ config, userId, workshopId, onComplete }: Pro
   const handleRestart = () => {
     setAnswers({});
     setScores({});
+    setSubScores(undefined);
+    setBurnoutRisk(undefined);
     setPatternType(undefined);
     setCurrentPage(0);
     setPhase("intro");
@@ -122,6 +130,8 @@ export function DiagnosticRunner({ config, userId, workshopId, onComplete }: Pro
           <ResultScreen
             config={config}
             scores={scores}
+            subScores={subScores}
+            burnoutRisk={burnoutRisk}
             patternType={patternType}
           />
           <div className="max-w-[720px] mx-auto px-6 pb-12 text-center print:hidden">

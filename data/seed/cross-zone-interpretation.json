@@ -1,0 +1,386 @@
+{
+  "_meta": {
+    "name": "3-Zone Cross-Zone Interpretation Engine",
+    "version": "1.0",
+    "description": "도구 간 교차 해석 로직. 개별 도구 시드 JSON에는 해당 도구의 해석만 있고, 이 파일에는 도구 간 연결·예측·검증·통합 패턴이 담겨 있습니다. integrated.ts에서 참조합니다.",
+    "usage": "통합 프로필(IntegratedProfile) 생성 시 이 JSON을 로딩하여 패턴 매칭, 코칭 팁 생성, 태도 경고 산출에 사용합니다."
+  },
+
+  "principles": {
+    "direction": {
+      "rule": "Being → Relating → Doing",
+      "description": "Zone A가 Zone B를 예측하고, Zone B가 Zone C를 예측합니다. 예측이 맞으면 진단 신뢰도가 높고, 맞지 않으면 '탐색의 단서'가 됩니다."
+    },
+    "moderation": {
+      "rule": "태도는 모든 Zone을 관통한다",
+      "description": "촉진 태도 부족 → 어느 Zone에서든 발현 억제. 보호 태도 부족 → 어느 Zone에서든 부작용 발생."
+    },
+    "inconsistency": {
+      "rule": "비일관성 = 탐색의 단서",
+      "description": "Zone 간 결과가 모순될 때, 오류가 아니라 탐색 기회입니다."
+    }
+  },
+
+  "zoneA_to_zoneB_predictions": {
+    "_description": "Zone A(BFI-2 + K-WSD) 결과로 Zone B(VAK + TA) 결과를 예측하는 규칙",
+    "bfi_to_ta": [
+      { "if": "extraversion >= 3.5", "then": "FC↑ and/or NP↑", "confidence": "high", "coachingOnMatch": "사교적 에너지가 관계에서도 일관되게 드러남", "coachingOnMismatch": "사교성은 있지만 깊은 관계에서는 다른 패턴이 나타남. 표면적 관계 vs 깊은 관계의 차이를 탐색" },
+      { "if": "agreeableness >= 3.5", "then": "NP↑", "confidence": "high", "coachingOnMatch": "공감 능력이 양육적 소통으로 일관되게 발현", "coachingOnMismatch": "우호적이지만 소통에서는 다른 에너지가 나타남. 직업적으로 학습된 우호성일 수 있음" },
+      { "if": "agreeableness <= 2.5", "then": "CP↑ or A↑", "confidence": "medium", "coachingOnMatch": "분석적/비판적 성향이 소통에서도 일관됨", "coachingOnMismatch": "성격은 분석적이지만 소통에서는 따뜻함을 학습한 상태. 전문적 성장의 증거" },
+      { "if": "conscientiousness >= 3.5", "then": "CP↑ and/or A↑", "confidence": "medium", "coachingOnMatch": "체계적 성향이 원칙적/논리적 소통으로 발현", "coachingOnMismatch": "체계적이지만 소통은 자유로운 스타일. 업무/관계를 분리하는 유연성" },
+      { "if": "negativeEmotionality >= 3.5", "then": "AC↑", "confidence": "high", "coachingOnMatch": "스트레스 반응성이 순응적 소통으로 이어짐", "coachingOnMismatch": "정서적 민감성이 있지만 소통에서는 잘 관리됨. 의식적 노력의 결과" },
+      { "if": "openMindedness >= 3.5", "then": "FC↑", "confidence": "medium", "coachingOnMatch": "개방성이 자유로운 소통 에너지로 발현", "coachingOnMismatch": "지적으로는 개방적이지만 소통은 보수적. 생각과 표현의 간극" }
+    ],
+    "kwsd_to_ta": [
+      { "if": "추진력.total >= 25", "then": "CP↑", "confidence": "medium" },
+      { "if": "연결력.total >= 25", "then": "NP↑", "confidence": "high" },
+      { "if": "통찰력.total >= 25", "then": "A↑", "confidence": "high" },
+      { "if": "창발력.total >= 25", "then": "FC↑", "confidence": "high" },
+      { "if": "조율력.total >= 25", "then": "A↑ and NP↑", "confidence": "medium" },
+      { "if": "성장력.total >= 25", "then": "NP↑", "confidence": "medium" }
+    ],
+    "bfi_to_vak": [
+      { "if": "openMindedness >= 3.5", "then": "multi-channel tendency", "confidence": "low" },
+      { "if": "extraversion >= 3.5", "then": "A(auditory) or V(visual)", "confidence": "low" },
+      { "if": "conscientiousness >= 3.5 and openMindedness <= 2.5", "then": "D(digital) or K(kinesthetic)", "confidence": "low" }
+    ]
+  },
+
+  "zoneB_to_zoneC_predictions": {
+    "_description": "Zone B(TA + VAK) 결과로 Zone C(TKI + 리더십 + 팔로워십) 결과를 예측하는 규칙",
+    "ta_to_leadership": [
+      { "if": "CP is highest", "then": "directing", "confidence": "high" },
+      { "if": "NP is highest", "then": "supporting", "confidence": "high" },
+      { "if": "A is highest", "then": "coaching", "confidence": "high" },
+      { "if": "FC is highest", "then": "delegating", "confidence": "medium" },
+      { "if": "AC is highest", "then": "leadership_weak", "confidence": "medium" }
+    ],
+    "ta_to_followership": [
+      { "if": "A >= 20 and FC >= 18", "then": "exemplary", "confidence": "high" },
+      { "if": "NP >= 20 and AC >= 18", "then": "conformist", "confidence": "high" },
+      { "if": "CP >= 20 and FC <= 12", "then": "alienated", "confidence": "medium" },
+      { "if": "AC >= 22 and FC <= 10", "then": "passive", "confidence": "medium" },
+      { "if": "A is highest and others are flat", "then": "pragmatic", "confidence": "low" }
+    ],
+    "ta_to_tki": [
+      { "if": "CP is highest", "then": "competing", "confidence": "high" },
+      { "if": "NP is highest", "then": "accommodating or collaborating", "confidence": "medium" },
+      { "if": "A is highest", "then": "compromising or collaborating", "confidence": "medium" },
+      { "if": "FC is highest", "then": "collaborating", "confidence": "low" },
+      { "if": "AC is highest", "then": "avoiding or accommodating", "confidence": "high" }
+    ]
+  },
+
+  "inconsistencyPatterns": {
+    "_description": "Zone 간 예측이 맞지 않을 때의 해석 규칙",
+    "patterns": [
+      {
+        "id": "extravert_low_connection",
+        "zones": "A-A",
+        "condition": "BFI extraversion >= 3.5 AND K-WSD 연결력.total <= 18",
+        "interpretation": "사교적이지만 깊은 공감은 부족. 넓고 얕은 관계 패턴.",
+        "coachingQuestion": "사람들과 어울리는 것은 좋아하지만, 깊이 연결되는 느낌이 덜한 경험이 있나요?"
+      },
+      {
+        "id": "drive_high_avoid",
+        "zones": "A-C",
+        "condition": "K-WSD 추진력.total >= 25 AND TKI avoiding is highest",
+        "interpretation": "혼자는 강하지만 갈등에서 에너지가 꺼짐. '개인 vs 대인' 간극.",
+        "coachingQuestion": "혼자 할 때는 강하지만, 타인과의 갈등에서 에너지가 꺼지는 경험이 있나요?"
+      },
+      {
+        "id": "np_high_competing",
+        "zones": "B-C",
+        "condition": "TA NP is highest AND TKI competing is highest",
+        "interpretation": "평상시 따뜻하지만 갈등 시 강경해지는 '보호자 모드'. 가치관 침해 시 전투 모드 전환.",
+        "coachingQuestion": "평상시 따뜻하지만 중요한 가치가 침해받을 때 강하게 나서는 패턴이 있나요?"
+      },
+      {
+        "id": "conscientious_conformist",
+        "zones": "A-C",
+        "condition": "BFI conscientiousness >= 3.5 AND followership == conformist",
+        "interpretation": "높은 기준을 가지고 있으면서 갈등을 피하는 완벽주의적 순응. 내면의 불만이 축적될 수 있음.",
+        "coachingQuestion": "기준이 높은데 갈등을 피하는 것은, '완벽하게 수행하기 위해 갈등을 피하는' 패턴일 수 있습니다. 내면에 불만이 쌓이고 있지는 않나요?"
+      },
+      {
+        "id": "openness_passive_follower",
+        "zones": "A-C",
+        "condition": "BFI openMindedness >= 3.5 AND followership == passive",
+        "interpretation": "지적 호기심은 강하지만 조직에서는 소극적. 환경 부적합 가능성.",
+        "coachingQuestion": "아이디어는 많지만 조직에서 표현하지 않는 것은, 환경이 안전하지 않다고 느끼기 때문일 수 있습니다."
+      },
+      {
+        "id": "insight_no_courage",
+        "zones": "A-M",
+        "condition": "K-WSD 통찰력.total >= 25 AND attitude 용기 <= 3",
+        "interpretation": "인사이트는 있지만 용기 부족으로 말하지 못함. '침묵하는 현자' 패턴.",
+        "coachingQuestion": "분석과 통찰력이 뛰어난데 왜 말하지 않나요? 작은 안전한 공간에서 의견을 내는 연습부터 시작합시다."
+      }
+    ]
+  },
+
+  "crossZonePatterns": {
+    "_description": "3개 Zone + Moderator를 종합한 6대 통합 패턴. 패턴 매칭은 가중치 기반으로, 모든 조건이 충족될 필요 없음.",
+    "patterns": [
+      {
+        "id": "strategic_leader",
+        "name": "전략적 리더",
+        "emoji": "🧭",
+        "conditions": {
+          "zoneA": { "bfi": "openMindedness >= 3.5", "kwsd": "통찰력 in top2" },
+          "zoneB": { "ta": "A is highest or 2nd", "vak": "D or V dominant" },
+          "zoneC": { "leadership": "coaching is highest", "followership": "exemplary", "tki": "collaborating in top2" },
+          "moderator": { "required": ["확신 >= 4", "용기 >= 4"], "enhancing": ["겸손 >= 4"] }
+        },
+        "weight_threshold": 5,
+        "description": "본질을 꿰뚫는 통찰력 + 논리적 소통 + 코칭형 리더십이 결합된 전략가.",
+        "bestRoles": "전략 기획, 변화관리, 컨설팅, 교육설계",
+        "coaching": ["통찰력을 팀원들이 이해할 수 있는 언어로 번역하는 연습", "지원형 리더십도 의식적으로 활용", "'배려' 태도 부족 시 '날카로운 사람'으로 인식될 위험"]
+      },
+      {
+        "id": "team_carer",
+        "name": "팀 케어러",
+        "emoji": "💚",
+        "conditions": {
+          "zoneA": { "bfi": "agreeableness >= 3.5", "kwsd": "연결력 or 성장력 in top2" },
+          "zoneB": { "ta": "NP is highest", "vak": "A dominant" },
+          "zoneC": { "leadership": "supporting is highest", "followership": "conformist or exemplary", "tki": "accommodating or collaborating in top2" },
+          "moderator": { "required": ["진정성 >= 4", "긍정 >= 4"], "warning": ["용기 <= 3"] }
+        },
+        "weight_threshold": 5,
+        "description": "팀의 정서적 안전망. 따뜻한 공감과 헌신으로 팀 응집력을 만듦.",
+        "bestRoles": "HR, 코칭, 교육, 조직문화, 고객관리",
+        "coaching": ["감정 에너지 관리 전략 수립 필수", "'용기' 태도 개발로 필요한 직면 역량 확보", "연결력이 '노력형 강점'이면 번아웃 위험 매우 높음"]
+      },
+      {
+        "id": "innovation_driver",
+        "name": "혁신 드라이버",
+        "emoji": "🚀",
+        "conditions": {
+          "zoneA": { "bfi": "openMindedness >= 3.5", "kwsd": "창발력 or 추진력 in top2" },
+          "zoneB": { "ta": "FC is highest or 2nd", "vak": "V dominant" },
+          "zoneC": { "leadership": "delegating is highest", "followership": "exemplary or alienated", "tki": "competing in top2" },
+          "moderator": { "required": ["자신감 >= 4", "배움 >= 4"], "warning": ["배려 <= 3", "절제 <= 3"] }
+        },
+        "weight_threshold": 5,
+        "description": "새로운 아이디어를 내고 실행까지 밀고 나가는 사람. 갈등 시 강하게 밀어붙여 마찰 가능.",
+        "bestRoles": "R&D, 마케팅, 신사업, 스타트업, UX",
+        "coaching": ["협력 모드를 '디폴트'로 설정하는 연습", "'책임'+'절제' 태도로 마무리력 보완", "팔로워십의 '적극적 참여'를 높이는 연습"]
+      },
+      {
+        "id": "quiet_expert",
+        "name": "조용한 전문가",
+        "emoji": "🔬",
+        "conditions": {
+          "zoneA": { "bfi": "conscientiousness >= 3.5 and extraversion <= 2.5", "kwsd": "추진력 behavioral > drive" },
+          "zoneB": { "ta": "AC is highest or 2nd", "vak": "K or D dominant" },
+          "zoneC": { "leadership": "leadership_weak or directing lowest", "followership": "conformist or passive", "tki": "avoiding or accommodating in top2" },
+          "moderator": { "warning": ["자신감 <= 3", "확신 <= 3", "용기 <= 3"] }
+        },
+        "weight_threshold": 4,
+        "description": "혼자 집중하며 체계적으로 일하지만 의견 표현이 부족. 번아웃 위험 체크 필수.",
+        "bestRoles": "전문 연구, 데이터 분석, QA, 시스템 운영",
+        "coaching": ["FC 에너지 활성화가 핵심. 소그룹에서 의견 내는 연습부터", "K-WSD 추진력이 '노력형'인지 반드시 확인", "촉진 태도 전반 개발이 시급"]
+      },
+      {
+        "id": "energy_mediator",
+        "name": "에너지 중재자",
+        "emoji": "⚖️",
+        "conditions": {
+          "zoneA": { "bfi": "agreeableness >= 3.5", "kwsd": "조율력 or 연결력 in top2" },
+          "zoneB": { "ta": "A >= 18 and NP >= 18", "vak": "A dominant" },
+          "zoneC": { "leadership": "coaching or supporting is highest", "followership": "exemplary or conformist", "tki": "compromising or accommodating in top2" },
+          "moderator": { "required": ["공정 >= 4", "배려 >= 4"], "warning": ["확신 <= 3"] }
+        },
+        "weight_threshold": 5,
+        "description": "논리적 중재 + 따뜻한 공감으로 팀의 화합을 이끌어냄. 순응 비율이 높으면 번아웃 위험.",
+        "bestRoles": "중간관리, 노사관계, 조직개발, 협상, 코칭",
+        "coaching": ["순응에서 '내 입장 표현'으로 전환하는 연습", "타협의 기준선을 미리 설정하는 전략", "'확신' 태도 개발로 중재의 설득력 강화"]
+      },
+      {
+        "id": "radar_coder",
+        "name": "레이더 코더",
+        "emoji": "📡",
+        "conditions": {
+          "zoneA": { "bfi": "openMindedness >= 3.5", "kwsd": "창발력 or 성장력 in top2" },
+          "zoneB": { "ta": "FC >= 18 and A >= 18", "vak": "V dominant" },
+          "zoneC": { "leadership": "delegating is highest", "followership": "exemplary", "tki": "collaborating in top2" },
+          "moderator": { "required": ["배움 >= 4", "겸손 >= 4"] }
+        },
+        "weight_threshold": 5,
+        "description": "시각적 비전 + 창발력 + 위임형으로 팀의 자율성을 존중하며 영감을 제공.",
+        "bestRoles": "디자인, UX, 콘텐츠 전략, 브랜딩, 교육 혁신",
+        "coaching": ["아이디어를 체계적으로 구조화하는 스킬 개발", "코칭형 리더십도 번갈아 사용해야 팀원이 성장", "'성장력'이 '자기 성장'에도 투자되는지 점검"]
+      }
+    ]
+  },
+
+  "strengthAttitudeMatrix": {
+    "_description": "강점-태도 매트릭스. critical=true인 태도가 3점 이하면 해당 강점의 발현이 심각하게 제한됨.",
+    "mapping": {
+      "통찰력": {
+        "facilitating": [
+          { "attitude": "용기", "critical": true, "impact": "인사이트 있어도 말하지 못함" },
+          { "attitude": "확신", "critical": true, "impact": "분석은 하지만 결론을 내리지 못함" }
+        ],
+        "protective": [
+          { "attitude": "겸손", "critical": true, "impact": "자기 분석만 옳다고 확신하여 오류 무시" },
+          { "attitude": "관용", "critical": true, "impact": "자기 관점에만 갇혀 시야 좁아짐" }
+        ]
+      },
+      "추진력": {
+        "facilitating": [
+          { "attitude": "자신감", "critical": true, "impact": "목표 설정이 소극적이 됨" },
+          { "attitude": "긍정", "critical": true, "impact": "도전 의지가 꺾임" }
+        ],
+        "protective": [
+          { "attitude": "절제", "critical": true, "impact": "과도한 추진이 독단으로 변질" },
+          { "attitude": "배려", "critical": true, "impact": "강한 추진이 독선으로 인식됨" }
+        ]
+      },
+      "연결력": {
+        "facilitating": [
+          { "attitude": "긍정", "critical": true, "impact": "관계에서 에너지를 주기보다 빼앗김" },
+          { "attitude": "진정성", "critical": true, "impact": "관계가 표면적 수준에 머무름" }
+        ],
+        "protective": [
+          { "attitude": "관용", "critical": true, "impact": "다른 유형의 사람과 관계 형성 어려움" },
+          { "attitude": "겸손", "critical": false, "impact": "우월감으로 진정한 관계 형성 어려움" }
+        ]
+      },
+      "조율력": {
+        "facilitating": [
+          { "attitude": "용기", "critical": true, "impact": "갈등을 직면하지 못하고 회피" },
+          { "attitude": "확신", "critical": true, "impact": "합의를 이끌어도 스스로 확신 못함" }
+        ],
+        "protective": [
+          { "attitude": "공정", "critical": true, "impact": "중재자로서의 신뢰가 무너짐" },
+          { "attitude": "배려", "critical": true, "impact": "합의해도 감정적 불만이 남음" }
+        ]
+      },
+      "창발력": {
+        "facilitating": [
+          { "attitude": "자신감", "critical": true, "impact": "아이디어 제안을 주저함" },
+          { "attitude": "배움", "critical": true, "impact": "새로운 아이디어의 원료 부족" }
+        ],
+        "protective": [
+          { "attitude": "절제", "critical": true, "impact": "아이디어 과잉으로 산만해짐" },
+          { "attitude": "책임", "critical": true, "impact": "좋은 아이디어가 실행으로 이어지지 않음" }
+        ]
+      },
+      "성장력": {
+        "facilitating": [
+          { "attitude": "긍정", "critical": true, "impact": "성장 가능성에 대한 믿음 약화" },
+          { "attitude": "배움", "critical": true, "impact": "자기계발과 타인 지원 모두 약해짐" }
+        ],
+        "protective": [
+          { "attitude": "겸손", "critical": true, "impact": "피드백 거부로 성장 정체" },
+          { "attitude": "관용", "critical": false, "impact": "자기 방식만 고집하여 다양성에서 배우지 못함" }
+        ]
+      }
+    }
+  },
+
+  "influenceProfile": {
+    "_description": "리더십 × 팔로워십 교차로 산출되는 영향력 프로필",
+    "calculation": {
+      "method": "리더십 총점 백분율(leadershipTotal / 100) × 팔로워십 유형 분류",
+      "strongLeader": "leadershipTotal / leadershipMax >= 0.5",
+      "strongFollower": "followership type in [exemplary, conformist]"
+    },
+    "profiles": {
+      "partner": {
+        "condition": "strongLeader AND strongFollower",
+        "tki_tendency": "collaborating / compromising",
+        "attitude_key": ["자신감", "확신", "배려", "공정"],
+        "coaching": "에너지 관리로 지속가능성 유지. 팀 내 파트너 양성자 역할."
+      },
+      "supporter": {
+        "condition": "NOT strongLeader AND strongFollower",
+        "tki_tendency": "accommodating / compromising",
+        "attitude_key": ["확신", "용기"],
+        "coaching": "작은 범위에서 주도적 역할 경험 쌓기. 확신·용기 태도 개발이 핵심."
+      },
+      "commander": {
+        "condition": "strongLeader AND NOT strongFollower",
+        "tki_tendency": "competing",
+        "attitude_key": ["배려", "관용", "겸손"],
+        "coaching": "'따르는 연습' 의식적 시도. 보호 태도 전반 개발 필요."
+      },
+      "observer": {
+        "condition": "NOT strongLeader AND NOT strongFollower",
+        "tki_tendency": "avoiding",
+        "attitude_key": ["자신감", "용기", "긍정"],
+        "coaching": "원인 탐색 우선 (번아웃? 환경? 역량?). 촉진 태도 전반 개발 시급."
+      }
+    }
+  },
+
+  "burnoutDetection": {
+    "_description": "K-WSD 욕구-행동 간극 + 태도 저점수 조합으로 번아웃 위험 감지",
+    "rules": [
+      {
+        "id": "effortful_low_positivity",
+        "condition": "K-WSD any category behavioral - drive >= 4 AND attitude 긍정 <= 3",
+        "severity": "high",
+        "message": "노력형 강점 + 긍정 태도 부족 = 번아웃 진행 중일 수 있습니다",
+        "action": "즉시 에너지 재배치 필요. 노력형 강점 영역의 업무 비중 축소 고려."
+      },
+      {
+        "id": "high_np_low_boundary",
+        "condition": "TA NP is highest AND K-WSD 연결력.behavioral - 연결력.drive >= 4",
+        "severity": "high",
+        "message": "돌봄 에너지 과다 지출 + 연결력 노력형 = 감정 번아웃 위험",
+        "action": "건강한 경계 설정 연습. '아니오'라고 말할 수 있는 용기 태도 개발."
+      },
+      {
+        "id": "passive_follower_low_confidence",
+        "condition": "followership == passive AND attitude 자신감 <= 2",
+        "severity": "medium",
+        "message": "수동형 팔로워 + 극도의 자신감 부족 = 학습된 무기력 가능성",
+        "action": "원인 탐색: 환경 문제인지, 역량 문제인지, 번아웃인지 구분. 작은 성공 경험부터."
+      },
+      {
+        "id": "high_conscientiousness_effortful",
+        "condition": "BFI conscientiousness >= 4.0 AND K-WSD 추진력.behavioral - 추진력.drive >= 4",
+        "severity": "medium",
+        "message": "성실성이 만든 노력형 추진력. 성실해서 하는 것이지 진정 원해서 하는 것이 아닐 수 있음.",
+        "action": "'욕구 강점'이 높은 영역을 찾아 에너지를 재배치. 추진력은 핵심 강점이 아닌 '수단'으로 활용."
+      }
+    ]
+  },
+
+  "taCoachingCore": {
+    "principle": "가장 낮은 자아상태를 10% 끌어올려라",
+    "description": "단점을 고치는 것이 아니라 균형을 맞추는 것. 가장 낮은 자아상태에 작은 행동 변화를 만들면 전체 에고그램의 균형이 개선됨.",
+    "microActions": {
+      "CP_lowest": "작은 기준 세우기: 회의 시작/종료 시간 지키기부터",
+      "NP_lowest": "하루 한 번 칭찬하기: 동료의 작은 기여를 인정",
+      "A_lowest": "감정 전에 사실 확인하기: '정말 그런가?' 질문 습관",
+      "FC_lowest": "회의에서 한 번 농담하기: 작은 자유로움 표현",
+      "AC_lowest": "팀 규칙 하나 만들어 따르기: 작은 순응 경험"
+    }
+  },
+
+  "tkiCoachingCore": {
+    "principle": "'기본값(Default)'과 '상황별 선택(Choice)'의 구분",
+    "description": "TKI 결과는 무의식적 '기본값'. 효과적인 사람은 상황에 따라 의도적으로 다른 유형을 '선택'. 진단의 목표는 기본값을 인식한 후 레퍼토리를 넓히는 것.",
+    "situationalGuide": {
+      "competing": "원칙적 문제, 위기 대응, 빠른 결정 필요 시",
+      "collaborating": "복잡한 이해관계, 장기적 관계, 창의적 해결 필요 시",
+      "compromising": "시간 제한, 동등한 힘의 균형, 임시 해결 필요 시",
+      "avoiding": "감정 냉각 필요, 사소한 문제, 정보 부족 시",
+      "accommodating": "상대 이슈가 더 중요, 신뢰 축적 필요, 내가 틀렸을 때"
+    }
+  },
+
+  "leadershipCoachingCore": {
+    "principle": "유연성 지수가 핵심. 하나의 스타일이 아니라 상황별 전환 능력.",
+    "flexibilityDevelopment": {
+      "step1": "가장 낮은 스타일을 확인",
+      "step2": "그 스타일이 필요한 상황을 3가지 나열",
+      "step3": "다음 주 그 상황에서 의식적으로 그 스타일을 사용",
+      "step4": "결과를 기록하고 피드백 받기"
+    }
+  }
+}

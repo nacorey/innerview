@@ -19,9 +19,14 @@ function UserNav() {
             진단 도구
           </Link>
           {user && (
-            <Link href="/my" className="text-sm text-foreground/60 hover:text-foreground">
-              마이페이지
-            </Link>
+            <>
+              <Link href="/my" className="text-sm text-foreground/60 hover:text-foreground">
+                마이페이지
+              </Link>
+              <Link href="/my/integrated" className="text-sm text-foreground/60 hover:text-foreground">
+                통합 프로필
+              </Link>
+            </>
           )}
           {!isLoading && (
             user ? (

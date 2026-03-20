@@ -8,6 +8,7 @@ import {
   Printer, Check, Sprout,
 } from "lucide-react";
 import type { DiagnosticToolConfig, ChartType } from "@/lib/types/diagnostic";
+import type { SplitScore, BurnoutRisk } from "@/lib/types/zone";
 
 /* ── Dynamic chart imports ── */
 const RadarChartWrapper = dynamic(
@@ -28,6 +29,18 @@ const DonutChartWrapper = dynamic(
 );
 const MatrixChart = dynamic(
   () => import("@/components/charts/MatrixChart").then((m) => m.MatrixChart),
+  { ssr: false }
+);
+const GroupedBarChart = dynamic(
+  () => import("@/components/charts/GroupedBarChart").then((m) => m.GroupedBarChart),
+  { ssr: false }
+);
+const BurnoutRiskTable = dynamic(
+  () => import("@/components/charts/BurnoutRiskTable").then((m) => m.BurnoutRiskTable),
+  { ssr: false }
+);
+const HeatmapChart = dynamic(
+  () => import("@/components/charts/HeatmapChart").then((m) => m.HeatmapChart),
   { ssr: false }
 );
 
@@ -82,16 +95,21 @@ const defaultChartLabel: Record<string, string> = {
   bar: "점수 비교",
   donut: "비율 분석",
   matrix: "매트릭스",
+  "grouped-bar": "욕구 vs 행동",
+  "burnout-table": "강점 간극 분석",
+  heatmap: "강점-태도 매트릭스",
 };
 
 function ChartRenderer({
   type,
   scores,
   config,
+  subScores,
 }: {
   type: ChartType;
   scores: Record<string, number>;
   config: DiagnosticToolConfig;
+  subScores?: Record<string, SplitScore>;
 }) {
   const { interpretations, chartConfig } = config;
   const maxScore = chartConfig.maxScore;
@@ -114,6 +132,24 @@ function ChartRenderer({
           axisLabels={chartConfig.axisLabels}
         />
       );
+    case "grouped-bar":
+      if (!subScores) return null;
+      return <GroupedBarChart splitScores={subScores} />;
+    case "burnout-table":
+      if (!subScores) return null;
+      return <BurnoutRiskTable splitScores={subScores} />;
+    case "heatmap": {
+      const hc = chartConfig.heatmapConfig;
+      if (!hc) return null;
+      return (
+        <HeatmapChart
+          scores={scores}
+          xAxis={hc.xAxis}
+          yAxis={hc.yAxis}
+          criticalPairs={hc.criticalPairs}
+        />
+      );
+    }
     default:
       return null;
   }
@@ -123,19 +159,21 @@ function ChartRenderer({
 interface Props {
   config: DiagnosticToolConfig;
   scores: Record<string, number>;
+  subScores?: Record<string, SplitScore>;
+  burnoutRisk?: BurnoutRisk[];
   patternType?: string;
 }
 
 /* ════════════════════════════════════════════════════════════
    ResultScreen
    ════════════════════════════════════════════════════════════ */
-export function ResultScreen({ config, scores, patternType }: Props) {
+export function ResultScreen({ config, scores, subScores, burnoutRisk, patternType }: Props) {
   const sortedCategories = Object.entries(scores).sort(([, a], [, b]) => b - a);
   const categoryKeys = Object.keys(config.interpretations);
   const maxCat = sortedCategories[0]?.[0];
   const minCat = sortedCategories[sortedCategories.length - 1]?.[0];
   const maxScore = config.chartConfig.maxScore;
-  const pat = patternType ? config.patternConfig?.patterns[patternType] : undefined;
+  const pat = patternType ? config.patternConfig?.patterns?.[patternType] : undefined;
 
   return (
     <div className="bg-surface">
@@ -232,7 +270,7 @@ export function ResultScreen({ config, scores, patternType }: Props) {
                       {categoryKeys.length}가지 차원의 분포 · {patternType}
                     </p>
                   )}
-                  <ChartRenderer type={chartType} scores={scores} config={config} />
+                  <ChartRenderer type={chartType} scores={scores} config={config} subScores={subScores} />
                 </div>
               </Reveal>
             )

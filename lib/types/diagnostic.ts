@@ -1,4 +1,6 @@
-export type ScaleType = "likert-4" | "likert-5" | "rank-4";
+import type { Zone, SplitCategoryMap } from "./zone";
+
+export type ScaleType = "likert-4" | "likert-5" | "likert-7" | "rank-4" | "split-likert-5";
 
 export interface DiagnosticToolConfig {
   id: string;
@@ -12,13 +14,17 @@ export interface DiagnosticToolConfig {
   scaleType: ScaleType;
   scaleOptions: ScaleOption[];
 
-  categoryMap: Record<string, number[]>;
+  categoryMap: Record<string, number[]> | SplitCategoryMap;
   reverseItems?: number[];
   maxScale?: number;
 
   interpretations: Record<string, CategoryInterpretation>;
   chartConfig: ChartConfig;
   patternConfig?: PatternConfig;
+
+  zone?: Zone;
+  zoneLabel?: string;
+  zoneOrder?: number;
 
   isActive: boolean;
   sortOrder: number;
@@ -55,8 +61,9 @@ export interface CategoryInterpretation {
   threshold?: number;
 }
 
-export type ChartType = "radar" | "bar" | "line" | "donut" | "matrix";
+export type ChartType = "radar" | "bar" | "line" | "donut" | "matrix" | "grouped-bar" | "burnout-table" | "heatmap";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ChartConfig {
   primary: ChartType;
   secondary?: ChartType[];
@@ -67,11 +74,27 @@ export interface ChartConfig {
     yLabel: string;
     positions: Record<string, { x: number; y: number }>;
   };
+  // New tool-specific configs (optional, used by respective chart components)
+  radarKeys?: string[];
+  groupedBarConfig?: {
+    groups: string[];
+    series: { key: string; label: string; color: string }[];
+    maxValue?: number;
+  };
+  matrixConfig?: Record<string, unknown>;
+  barConfig?: Record<string, unknown>;
+  heatmapConfig?: {
+    title?: string;
+    xAxis: string[];
+    yAxis: string[];
+    criticalPairs: Record<string, string[]>;
+  };
 }
 
 export interface PatternConfig {
-  type: "egogram" | "custom";
-  patterns: Record<string, PatternDefinition>;
+  type: string;
+  patterns?: Record<string, PatternDefinition>;
+  [key: string]: unknown;
 }
 
 export interface PatternDefinition {
@@ -93,6 +116,7 @@ export interface DiagnosticResult {
   workshopId?: string;
   answers: Record<number, number | Record<string, number>>;
   scores: Record<string, number>;
+  subScores?: Record<string, import("./zone").SplitScore>;
   patternType?: string;
   completedAt: string;
 }

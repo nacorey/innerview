@@ -91,6 +91,41 @@ export function detectBFIPattern(scores: Record<string, number>): string {
   return BFI_PATTERN_MAP[maxKey] ?? "복합 성향형";
 }
 
+/**
+ * Leadership: dominant style = highest scoring style
+ */
+export function detectDominantStyle(scores: Record<string, number>): string {
+  const entries = Object.entries(scores);
+  entries.sort(([, a], [, b]) => b - a);
+  return entries[0]?.[0] ?? "";
+}
+
+/**
+ * Followership: Kelley 5-type quadrant detection
+ */
+export function detectFollowershipPattern(scores: Record<string, number>): string {
+  const x = scores["적극적참여"] ?? 0;
+  const y = scores["독립적사고"] ?? 0;
+  const mid = 30;
+
+  // Pragmatic center zone (20-40, 20-40) checked first
+  if (x >= 20 && x <= 40 && y >= 20 && y <= 40) return "실용형";
+  if (x > mid && y > mid) return "모범형";
+  if (x <= mid && y > mid) return "소외형";
+  if (x > mid && y <= mid) return "순응형";
+  return "수동형";
+}
+
+/**
+ * Attitude: counts warnings for scores ≤ 3
+ */
+export function detectAttitudeWarnings(scores: Record<string, number>): string {
+  const warnings = Object.entries(scores).filter(([, v]) => v <= 3);
+  if (warnings.length === 0) return "양호";
+  if (warnings.length <= 2) return "주의";
+  return "경고";
+}
+
 export function detectPattern(
   patternType: string,
   scores: Record<string, number>
@@ -100,6 +135,15 @@ export function detectPattern(
       return detectEgogramPattern(scores);
     case "bigfive":
       return detectBFIPattern(scores);
+    case "dominant-style":
+      return detectDominantStyle(scores);
+    case "matrix-quadrant":
+      return detectFollowershipPattern(scores);
+    case "attitude-warning":
+      return detectAttitudeWarnings(scores);
+    case "burnout-risk":
+      // K-WSD burnout patterns are handled by the split scoring engine
+      return undefined;
     default:
       return undefined;
   }

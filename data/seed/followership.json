@@ -1,0 +1,445 @@
+{
+  "slug": "followership",
+  "name": "팔로워십 진단",
+  "name_en": "Followership Style Assessment",
+  "description": "Robert Kelley의 팔로워십 모델에 기반한 진단입니다. 독립적·비판적 사고와 적극적·능동적 참여의 2축으로 당신의 팔로워십 유형을 파악합니다. 리더십과 함께 측정하면 조직 내 '영향력 프로필'이 완성됩니다.",
+  "icon": "🤲",
+  "zone": "C",
+  "zone_label": "Doing",
+  "zone_order": 3,
+  "scale_type": "likert-7",
+  "scale_options": [
+    { "value": 0, "label": "전혀 아니다 (없다)" },
+    { "value": 1, "label": "거의 아니다" },
+    { "value": 2, "label": "가끔 그렇다" },
+    { "value": 3, "label": "보통이다 (반반)" },
+    { "value": 4, "label": "자주 그렇다" },
+    { "value": 5, "label": "대체로 그렇다" },
+    { "value": 6, "label": "언제나 그렇다 (항상)" }
+  ],
+  "max_scale": 6,
+  "reverse_items": [],
+
+  "questions": [
+    {
+      "index": 0,
+      "text": "당신의 일은 자신에게 중요한 사회적 목표나 개인적인 꿈을 성취하는 데 도움이 되는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 1,
+      "text": "당신 개인의 업무 목표가 조직의 최상위 목표와 부응(일치)하는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 2,
+      "text": "당신은 최선의 아이디어와 능력을 일과 조직에 쏟아 붓고, 지극히 헌신적이며 열정적으로 일하는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 3,
+      "text": "당신의 열의가 확산되어 동료 직원들을 활기차게 만드는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 4,
+      "text": "리더의 지시를 기다리거나 단순히 떠맡는 것이 아니라, 조직에 가장 중요한 목표를 성취하기 위해서는 무엇이 제일 중요한 활동인가를 자신이 직접 판단하는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 5,
+      "text": "리더와 조직에 더욱 가치 있는 사람이 되기 위해서 당신은 그런 중요한 활동 속에서 독특한 능력을 적극적으로 발휘하는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 6,
+      "text": "새로운 일이나 임무가 시작되었을 때 리더가 중요하다고 생각하는 업무에서 곧바로 성과를 실현하는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 7,
+      "text": "당신이 기한 안에 일을 훌륭히 해낼 뿐만 아니라, 때로 부족한 점을 채울 것이라는 점을 믿고 리더가 어려운 임무를 당신에게 맡기는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 8,
+      "text": "당신은 자신의 업무 범위를 벗어나는 일도 찾아내서 성공적으로 완수하기 위해 솔선수범하는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 9,
+      "text": "공동 프로젝트의 리더가 아닐 때도, 맡은 일보다 많은 일을 하고 능력껏 공헌하는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 10,
+      "text": "리더나 조직의 목표에 크게 공헌할 수 있는 새로운 아이디어를 독자적으로 고안해서 적극적으로 제기하는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 11,
+      "text": "리더에게 의존해서 어려운 문제들을 해결하기보다는 스스로 해결하려고 하는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 12,
+      "text": "자신은 별다른 인정을 받지 못하더라도 다른 동료들이 좋은 평가를 받도록 돕는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 13,
+      "text": "필요할 경우 일부러 반대의견을 개진해서라도 리더와 조직이 아이디어나 계획의 상향 잠재력과 하향 위험성 모두를 볼 수 있도록 돕는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 14,
+      "text": "리더의 요구나 목표, 제약조건들을 이해하고, 그것들을 충족시키기 위해서 열심히 일하는가?",
+      "category": "적극적참여"
+    },
+    {
+      "index": 15,
+      "text": "자신에 대한 평가를 미루기보다는 장점과 약점을 적극적이고 솔직하게 인정하는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 16,
+      "text": "지시받은 일만을 하는 데서 탈피해 리더가 내린 판단이 얼마나 현명한가를 스스로 평가해 보는 습관이 있는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 17,
+      "text": "리더가 전문분야나 개인적인 흥미에 정면으로 대치되는 일을 해달라고 부탁할 때 '아니오'라고 말할 수 있는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 18,
+      "text": "리더나 조직의 기준도 중요하지만 자신의 윤리적 기준이 있어서 이에 맞게 행동할 수 있는가?",
+      "category": "독립적사고"
+    },
+    {
+      "index": 19,
+      "text": "당신이 속한 조직과 갈등하거나 리더로부터 보복을 당한다고 해도 당신은 중요한 이슈에 대해서 자기 견해를 올바로 주장하는가?",
+      "category": "독립적사고"
+    }
+  ],
+
+  "category_map": {
+    "적극적참여": [1, 2, 3, 5, 6, 7, 8, 9, 12, 14],
+    "독립적사고": [0, 4, 10, 11, 13, 15, 16, 17, 18, 19]
+  },
+
+  "chart_config": {
+    "primary": "matrix",
+    "secondary": ["bar"],
+    "matrixConfig": {
+      "xAxis": {
+        "key": "적극적참여",
+        "label": "적극적·능동적 참여",
+        "labelEn": "Active Engagement",
+        "min": 0,
+        "max": 60,
+        "midpoint": 30,
+        "lowLabel": "소극적·수동적",
+        "highLabel": "적극적·능동적"
+      },
+      "yAxis": {
+        "key": "독립적사고",
+        "label": "독립적·비판적 사고",
+        "labelEn": "Independent/Critical Thinking",
+        "min": 0,
+        "max": 60,
+        "midpoint": 30,
+        "lowLabel": "의존적·수용적",
+        "highLabel": "독립적·비판적"
+      },
+      "quadrants": [
+        {
+          "id": "exemplary",
+          "position": "Q1",
+          "condition": "x > 30 AND y > 30",
+          "label": "모범형",
+          "labelEn": "Exemplary Follower",
+          "color": "#1D9E75",
+          "bgColor": "#E1F5EE"
+        },
+        {
+          "id": "alienated",
+          "position": "Q2",
+          "condition": "x <= 30 AND y > 30",
+          "label": "소외형",
+          "labelEn": "Alienated Follower",
+          "color": "#E24B4A",
+          "bgColor": "#FCEBEB"
+        },
+        {
+          "id": "passive",
+          "position": "Q3",
+          "condition": "x <= 30 AND y <= 30",
+          "label": "수동형",
+          "labelEn": "Passive Follower",
+          "color": "#888780",
+          "bgColor": "#F1EFE8"
+        },
+        {
+          "id": "conformist",
+          "position": "Q4",
+          "condition": "x > 30 AND y <= 30",
+          "label": "순응형",
+          "labelEn": "Conformist Follower",
+          "color": "#BF8F00",
+          "bgColor": "#FFF2CC"
+        },
+        {
+          "id": "pragmatic",
+          "position": "Q5",
+          "condition": "x >= 20 AND x <= 40 AND y >= 20 AND y <= 40",
+          "label": "실용형",
+          "labelEn": "Pragmatic Follower",
+          "color": "#7030A0",
+          "bgColor": "#E8D5F5"
+        }
+      ]
+    }
+  },
+
+  "pattern_config": {
+    "type": "matrix-quadrant",
+    "detectionMethod": "coordinate",
+    "pragmaticRange": { "xMin": 20, "xMax": 40, "yMin": 20, "yMax": 40 }
+  },
+
+  "interpretations": {
+    "적극적참여": {
+      "name": "적극적·능동적 참여",
+      "nameEn": "Active Engagement",
+      "color": "#C55A11",
+      "bgColor": "#FBE5D5",
+      "icon": "🔥",
+      "description": "조직과 리더의 목표를 위해 자발적으로 헌신하고, 맡은 일 이상의 기여를 하며, 동료의 성공을 돕는 행동 차원입니다.",
+      "highDescription": "열정적으로 헌신하며 팀에 활력을 불어넣습니다. 맡은 일 이상을 자발적으로 수행합니다.",
+      "lowDescription": "주어진 일만 수행하며 자발적 기여가 부족합니다. 팀에 대한 에너지 투입이 제한적입니다.",
+      "scoreRanges": {
+        "high": { "min": 41, "max": 60, "label": "매우 적극적" },
+        "medium": { "min": 21, "max": 40, "label": "보통" },
+        "low": { "min": 0, "max": 20, "label": "소극적" }
+      }
+    },
+
+    "독립적사고": {
+      "name": "독립적·비판적 사고",
+      "nameEn": "Independent/Critical Thinking",
+      "color": "#2E75B6",
+      "bgColor": "#DEEAF6",
+      "icon": "🧠",
+      "description": "리더의 판단을 맹목적으로 따르지 않고 스스로 평가하며, 윤리적 기준을 가지고 필요시 반대 의견을 개진하는 사고 차원입니다.",
+      "highDescription": "독자적으로 판단하고 필요하면 반대 의견도 건설적으로 제시합니다. 자기 윤리 기준이 명확합니다.",
+      "lowDescription": "리더의 지시에 의존하며 독자적 판단을 하지 않습니다. 반대 의견 제시를 꺼립니다.",
+      "scoreRanges": {
+        "high": { "min": 41, "max": 60, "label": "매우 독립적" },
+        "medium": { "min": 21, "max": 40, "label": "보통" },
+        "low": { "min": 0, "max": 20, "label": "의존적" }
+      }
+    },
+
+    "_types": {
+      "exemplary": {
+        "name": "모범형 팔로워",
+        "nameEn": "Exemplary Follower",
+        "emoji": "⭐",
+        "color": "#1D9E75",
+        "bgColor": "#E1F5EE",
+        "condition": "적극적참여 HIGH + 독립적사고 HIGH",
+        "coreDescription": "독립적으로 사고하면서도 적극적으로 참여하는 이상적인 팔로워입니다. 리더의 비전을 이해하되 맹목적으로 따르지 않고, 건설적인 비판과 열정적 실행을 동시에 수행합니다.",
+        "characteristics": [
+          "스스로 판단하고 주도적으로 행동한다",
+          "리더에게 건설적 피드백을 제공한다",
+          "맡은 일 이상의 기여를 자발적으로 한다",
+          "윤리적 기준이 명확하고 필요시 반대 의견을 낸다",
+          "동료의 성공을 적극적으로 돕는다"
+        ],
+        "organizationalValue": "조직의 핵심 인재. 리더가 없어도 자율적으로 성과를 내며, 리더의 판단 오류를 보완하는 역할을 합니다. 차세대 리더 후보군입니다.",
+        "potentialChallenges": [
+          "리더와 의견 충돌이 잦을 수 있다",
+          "독립성이 강해 팀 규율과 마찰이 생길 수 있다",
+          "너무 많은 기여로 번아웃 위험이 있다"
+        ],
+        "developmentTips": [
+          "의견 충돌 시 '관계 보전 + 내용 전달'의 균형을 연습하세요",
+          "에너지 관리 전략을 세워 지속가능한 기여를 유지하세요",
+          "후배 팔로워를 코칭하여 모범형 팔로워를 양성하세요"
+        ],
+        "crossZoneInsight": {
+          "zoneA": "통찰력+추진력이 강한 프로필과 일치하는 경우가 많습니다.",
+          "zoneB": "TA에서 A(성인)와 FC(자유로운 어린이)가 동시에 높은 패턴과 연동됩니다.",
+          "moderator": "용기·확신 태도가 높을 때 모범형 특성이 더 강해집니다."
+        }
+      },
+
+      "alienated": {
+        "name": "소외형 팔로워",
+        "nameEn": "Alienated Follower",
+        "emoji": "😤",
+        "color": "#E24B4A",
+        "bgColor": "#FCEBEB",
+        "condition": "적극적참여 LOW + 독립적사고 HIGH",
+        "coreDescription": "독립적 사고력은 뛰어나지만 적극적 참여가 부족한 유형입니다. 비판적 시각은 있으나 건설적 행동으로 이어지지 않아 조직 내에서 '냉소적 방관자'로 인식될 수 있습니다.",
+        "characteristics": [
+          "조직의 문제를 날카롭게 지적한다",
+          "하지만 해결을 위한 행동에는 소극적이다",
+          "과거 부정적 경험으로 인한 환멸감이 있을 수 있다",
+          "능력은 있으나 조직에 대한 신뢰가 낮다",
+          "비판은 하지만 대안을 제시하지 않는 경향이 있다"
+        ],
+        "organizationalValue": "잠재적 가치가 매우 높은 유형. 비판적 시각은 조직의 약점을 발견하는 레이더 역할을 할 수 있습니다. 다만 에너지 방향 전환이 필요합니다.",
+        "potentialChallenges": [
+          "팀 분위기를 저하시킬 수 있다",
+          "능력 대비 기여가 낮아 평가에서 불이익을 받을 수 있다",
+          "점점 더 소외되는 악순환에 빠질 수 있다"
+        ],
+        "developmentTips": [
+          "비판할 때 반드시 '대안 1가지'를 함께 제시하는 규칙을 정하세요",
+          "작은 범위에서라도 주도적으로 개선 프로젝트를 이끌어 보세요",
+          "소외감의 원인이 된 사건을 정리하고, 현재와 분리하세요",
+          "신뢰할 수 있는 리더나 멘토와 솔직한 대화를 시도하세요"
+        ],
+        "crossZoneInsight": {
+          "zoneA": "통찰력은 높지만 추진력이 낮은 K-WSD 패턴과 자주 일치합니다.",
+          "zoneB": "TA에서 CP(비판적 부모)가 높고 FC(자유로운 어린이)가 낮은 경우가 많습니다.",
+          "moderator": "긍정 태도가 낮을 때 소외형 경향이 강화됩니다. 긍정 태도 개발이 전환점이 될 수 있습니다."
+        }
+      },
+
+      "passive": {
+        "name": "수동형 팔로워",
+        "nameEn": "Passive Follower",
+        "emoji": "😶",
+        "color": "#888780",
+        "bgColor": "#F1EFE8",
+        "condition": "적극적참여 LOW + 독립적사고 LOW",
+        "coreDescription": "독립적 사고와 적극적 참여 모두 낮은 유형입니다. 리더의 지시를 기다리고, 시킨 일만 수행하며, 독자적 판단을 하지 않습니다. 번아웃이나 학습된 무기력의 결과일 수 있습니다.",
+        "characteristics": [
+          "리더의 구체적 지시가 있어야 움직인다",
+          "주어진 일만 최소한으로 수행한다",
+          "독자적 판단이나 의견 제시를 하지 않는다",
+          "책임을 회피하고 의사결정을 리더에게 위임한다",
+          "변화에 저항하며 현상 유지를 선호한다"
+        ],
+        "organizationalValue": "안정적인 루틴 업무에서는 기능할 수 있으나, 변화가 필요한 환경에서는 걸림돌이 될 수 있습니다.",
+        "potentialChallenges": [
+          "성장 기회를 놓치고 도태될 위험이 있다",
+          "팀에 부담을 줄 수 있다",
+          "점점 더 소외되어 조직과의 연결감이 약해진다"
+        ],
+        "developmentTips": [
+          "이 유형이 된 원인을 탐색하세요 — 번아웃인지, 환경 문제인지, 역량 부족인지",
+          "하루에 한 가지 '스스로 판단한 행동'을 실천해 보세요",
+          "관심 있는 프로젝트에 자원하여 참여 경험을 쌓으세요",
+          "자신감이 부족하다면 작은 성공 경험부터 쌓아가세요"
+        ],
+        "crossZoneInsight": {
+          "zoneA": "K-WSD에서 전반적으로 욕구와 행동 모두 낮은 패턴. 번아웃 가능성을 점검하세요.",
+          "zoneB": "TA에서 AC(순응적 어린이)가 과도하게 높을 수 있습니다.",
+          "moderator": "자신감·용기·긍정 태도가 모두 낮을 때 나타나는 패턴. 촉진 태도 전반의 개발이 시급합니다."
+        }
+      },
+
+      "conformist": {
+        "name": "순응형 팔로워",
+        "nameEn": "Conformist Follower",
+        "emoji": "🙋",
+        "color": "#BF8F00",
+        "bgColor": "#FFF2CC",
+        "condition": "적극적참여 HIGH + 독립적사고 LOW",
+        "coreDescription": "적극적으로 참여하고 헌신하지만, 독립적 사고가 부족한 유형입니다. 리더의 판단을 무조건 따르며, 비판적 검토 없이 실행합니다. '예스맨'으로 불리기도 합니다.",
+        "characteristics": [
+          "리더의 지시에 적극적으로 따른다",
+          "열심히 일하지만 방향의 옳고 그름을 판단하지 않는다",
+          "갈등을 피하고 조화를 우선시한다",
+          "리더에 대한 충성심이 높다",
+          "독자적 의견을 내기보다 동의를 먼저 표한다"
+        ],
+        "organizationalValue": "안정적인 실행력을 제공하며 팀 조화에 기여합니다. 하지만 잘못된 방향에 브레이크를 걸지 못하는 위험이 있습니다.",
+        "potentialChallenges": [
+          "리더의 잘못된 결정에 동조하여 조직 위험을 초래할 수 있다",
+          "자신의 성장이 리더에 의존적이 된다",
+          "리더가 바뀌면 적응에 어려움을 겪을 수 있다"
+        ],
+        "developmentTips": [
+          "회의에서 한 가지 질문이나 대안을 반드시 제시하는 규칙을 세우세요",
+          "'왜?'라는 질문을 습관화하세요 — 지시의 이유를 이해한 후 실행",
+          "자신만의 판단 기준(윤리적 기준, 전문적 기준)을 명확히 정리하세요",
+          "안전한 환경에서 반대 의견을 내는 연습을 시작하세요"
+        ],
+        "crossZoneInsight": {
+          "zoneA": "K-WSD에서 추진력·연결력은 높지만 통찰력이 낮은 패턴과 일치할 수 있습니다.",
+          "zoneB": "TA에서 NP(양육적 부모)와 AC(순응적 어린이)가 동시에 높은 경우가 많습니다.",
+          "moderator": "확신·용기 태도가 낮을 때 순응형 경향이 강화됩니다."
+        }
+      },
+
+      "pragmatic": {
+        "name": "실용형 팔로워",
+        "nameEn": "Pragmatic Follower",
+        "emoji": "🔄",
+        "color": "#7030A0",
+        "bgColor": "#E8D5F5",
+        "condition": "적극적참여 MIDDLE + 독립적사고 MIDDLE",
+        "coreDescription": "두 축 모두 중간 수준인 유형입니다. 상황에 따라 유연하게 대응하지만, 뚜렷한 정체성이 없을 수 있습니다. 조직 정치에 능하고 생존 전략이 뛰어나지만, 원칙보다 상황 판단에 의존합니다.",
+        "characteristics": [
+          "상황에 따라 적극적이거나 소극적으로 전환한다",
+          "위험을 감수하지 않고 안전한 선택을 한다",
+          "조직 내 흐름을 잘 읽고 적응한다",
+          "뚜렷한 입장보다 중간 포지션을 선호한다",
+          "단기적 이익에 집중하는 경향이 있다"
+        ],
+        "organizationalValue": "적응력이 뛰어나 다양한 상황에서 기능합니다. 하지만 장기적으로는 신뢰 구축이 어려울 수 있습니다.",
+        "potentialChallenges": [
+          "일관성 부족으로 동료의 신뢰를 잃을 수 있다",
+          "원칙 없는 처세로 인식될 위험이 있다",
+          "어느 방향으로도 성장하지 못하는 정체 상태에 빠질 수 있다"
+        ],
+        "developmentTips": [
+          "자신의 핵심 가치 3가지를 정하고 이에 따라 일관되게 행동하세요",
+          "모범형 팔로워를 롤모델로 삼아 한 영역씩 성장시키세요",
+          "적극적 참여를 먼저 높이는 것이 독립적 사고보다 쉬운 출발점입니다",
+          "작은 리스크를 감수하는 연습을 통해 독립적 사고를 키우세요"
+        ],
+        "crossZoneInsight": {
+          "zoneA": "K-WSD에서 뚜렷한 상위 강점이 없는 평탄한 프로필과 일치할 수 있습니다.",
+          "zoneB": "TA에서 A(성인)가 가장 높고 나머지가 비슷한 평탄형과 연동됩니다.",
+          "moderator": "전반적으로 태도가 중간 수준일 때 나타납니다. 어떤 태도를 '먼저' 개발할지 선택이 핵심입니다."
+        }
+      }
+    },
+
+    "_influenceProfile": {
+      "title": "영향력 프로필 (리더십 × 팔로워십)",
+      "description": "리더십 진단과 팔로워십 진단을 교차하면 조직 내 영향력 프로필이 완성됩니다.",
+      "matrix": {
+        "partner": {
+          "condition": "Leadership HIGH + Followership HIGH (모범형)",
+          "label": "파트너",
+          "description": "이끌 때는 이끌고, 따를 때는 적극적으로 따르는 가장 이상적인 프로필. 중간관리자에게 특히 중요합니다."
+        },
+        "supporter": {
+          "condition": "Leadership LOW + Followership HIGH (순응형/모범형)",
+          "label": "서포터",
+          "description": "충성스럽고 헌신적이지만 방향 설정이나 주도적 제안에는 소극적입니다."
+        },
+        "commander": {
+          "condition": "Leadership HIGH + Followership LOW (소외형)",
+          "label": "커맨더",
+          "description": "강하게 이끌지만 타인의 리드를 따르기 어려운 프로필. 갈등의 원인이 될 수 있습니다."
+        },
+        "observer": {
+          "condition": "Leadership LOW + Followership LOW (수동형)",
+          "label": "옵저버",
+          "description": "소극적이고 관망하는 패턴. 번아웃이나 조직 부적응의 징후일 수 있습니다."
+        }
+      }
+    }
+  },
+
+  "is_active": true,
+  "sort_order": 7
+}

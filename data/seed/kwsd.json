@@ -1,0 +1,361 @@
+{
+  "slug": "kwsd",
+  "name": "한국형 직무강점 진단 (K-WSD 2.0)",
+  "name_en": "Korean Workplace Strengths Diagnostic",
+  "description": "VIA 가치체계와 태니지먼트 행동패턴을 융합한 한국형 강점 진단. 6대 강점 영역을 욕구(Drive)와 행동(Behavioral)으로 구분 측정하여, 자연스러운 강점과 노력형 강점을 식별합니다.",
+  "icon": "💎",
+  "zone": "A",
+  "zone_label": "Being",
+  "zone_order": 2,
+  "scale_type": "split-likert-5",
+  "scale_options": [
+    { "value": 1, "label": "전혀 아니다" },
+    { "value": 2, "label": "아니다" },
+    { "value": 3, "label": "보통이다" },
+    { "value": 4, "label": "그렇다" },
+    { "value": 5, "label": "매우 그렇다" }
+  ],
+  "max_scale": 5,
+  "reverse_items": [],
+
+  "questions": [
+    { "index": 0,  "text": "복잡한 상황에서 핵심 원인을 찾아내는 것이 자연스럽고 즐겁다.", "category": "통찰력", "sub": "drive" },
+    { "index": 1,  "text": "여러 정보를 종합해 큰 그림을 그리는 것을 좋아한다.", "category": "통찰력", "sub": "drive" },
+    { "index": 2,  "text": "새로운 지식이나 트렌드를 접하면 자연스럽게 업무에 어떻게 적용할지 고민하게 된다.", "category": "통찰력", "sub": "drive" },
+    { "index": 3,  "text": "업무상 의사결정 시 감정보다 논리와 근거를 중시하려고 노력한다.", "category": "통찰력", "sub": "behavioral" },
+    { "index": 4,  "text": "미래에 발생할 수 있는 리스크를 미리 예측하고 대비하는 편이다.", "category": "통찰력", "sub": "behavioral" },
+    { "index": 5,  "text": "다른 사람이 놓치는 중요한 포인트를 발견하는 역할을 맡고 있다.", "category": "통찰력", "sub": "behavioral" },
+
+    { "index": 6,  "text": "일단 시작하면 결과가 나올 때까지 밀고 나가는 것이 내게는 자연스럽다.", "category": "추진력", "sub": "drive" },
+    { "index": 7,  "text": "어려운 상황에서도 대안을 찾아 실행하는 과정 자체를 즐긴다.", "category": "추진력", "sub": "drive" },
+    { "index": 8,  "text": "실패를 두려워하기보다 도전의 과정으로 받아들이는 편이다.", "category": "추진력", "sub": "drive" },
+    { "index": 9,  "text": "맡은 업무에 대해 강한 책임감을 느끼며, 약속한 기한을 지킨다.", "category": "추진력", "sub": "behavioral" },
+    { "index": 10, "text": "업무 목표를 구체적으로 설정하고 달성 과정을 관리한다.", "category": "추진력", "sub": "behavioral" },
+    { "index": 11, "text": "불확실한 상황에서도 결정을 내리고 행동으로 옮기는 편이다.", "category": "추진력", "sub": "behavioral" },
+
+    { "index": 12, "text": "동료의 감정이나 고충을 알아차리는 것이 내게는 자연스럽다.", "category": "연결력", "sub": "drive" },
+    { "index": 13, "text": "상대방의 이야기를 끝까지 경청하고 진심으로 반응하는 것을 즐긴다.", "category": "연결력", "sub": "drive" },
+    { "index": 14, "text": "어려운 상황에 있는 동료에게 먼저 다가가 도움을 제안하고 싶어진다.", "category": "연결력", "sub": "drive" },
+    { "index": 15, "text": "팀 내에서 분위기를 자연스럽게 조성하는 역할을 맡고 있다.", "category": "연결력", "sub": "behavioral" },
+    { "index": 16, "text": "처음 만난 사람과도 비교적 빨리 편안한 관계를 맺는 편이다.", "category": "연결력", "sub": "behavioral" },
+    { "index": 17, "text": "다른 사람의 성공이나 기쁨을 진심으로 함께 축하한다.", "category": "연결력", "sub": "behavioral" },
+
+    { "index": 18, "text": "팀 내 갈등 상황에서 양측의 입장을 균형 있게 이해하려는 것이 자연스럽다.", "category": "조율력", "sub": "drive" },
+    { "index": 19, "text": "모든 사람의 의견이 반영되도록 노력하는 것을 즐긴다.", "category": "조율력", "sub": "drive" },
+    { "index": 20, "text": "팀의 다양성을 존중하면서 공동 목표를 향해 조율하는 것이 보람차다.", "category": "조율력", "sub": "drive" },
+    { "index": 21, "text": "서로 다른 의견이 있을 때 절충안이나 대안을 제시하는 편이다.", "category": "조율력", "sub": "behavioral" },
+    { "index": 22, "text": "감정이 격해진 상황에서도 차분하게 대화를 이끌어간다.", "category": "조율력", "sub": "behavioral" },
+    { "index": 23, "text": "조직의 규칙이나 원칙을 일관되게 적용하는 것을 중시한다.", "category": "조율력", "sub": "behavioral" },
+
+    { "index": 24, "text": "기존 방식에 의문을 품고 더 나은 방법을 찾는 것이 자연스럽다.", "category": "창발력", "sub": "drive" },
+    { "index": 25, "text": "서로 다른 분야의 아이디어를 연결하여 새로운 해결책을 만드는 것을 즐긴다.", "category": "창발력", "sub": "drive" },
+    { "index": 26, "text": "업무 중 번뜩이는 아이디어가 자주 떠오르며 그 순간이 행복하다.", "category": "창발력", "sub": "drive" },
+    { "index": 27, "text": "정해진 프로세스보다 상황에 맞는 유연한 접근을 선호한다.", "category": "창발력", "sub": "behavioral" },
+    { "index": 28, "text": "동료들에게 새로운 관점이나 시각을 제안하는 경우가 많다.", "category": "창발력", "sub": "behavioral" },
+    { "index": 29, "text": "실패 가능성이 있더라도 새로운 시도를 선택하는 편이다.", "category": "창발력", "sub": "behavioral" },
+
+    { "index": 30, "text": "자신의 부족한 점을 인식하고 개선하려는 노력이 자연스럽다.", "category": "성장력", "sub": "drive" },
+    { "index": 31, "text": "후배나 동료의 성장을 도울 때 큰 보람을 느낀다.", "category": "성장력", "sub": "drive" },
+    { "index": 32, "text": "일상 속 작은 성취에도 감사하며 의미를 발견하는 편이다.", "category": "성장력", "sub": "drive" },
+    { "index": 33, "text": "타인의 피드백을 방어 없이 수용하고 성장의 기회로 삼는다.", "category": "성장력", "sub": "behavioral" },
+    { "index": 34, "text": "업무 외에도 자기계발을 위한 학습 활동에 시간을 투자한다.", "category": "성장력", "sub": "behavioral" },
+    { "index": 35, "text": "동료의 숨겨진 강점이나 잠재력을 발견하고 격려한다.", "category": "성장력", "sub": "behavioral" }
+  ],
+
+  "category_map": {
+    "통찰력": { "drive": [0, 1, 2], "behavioral": [3, 4, 5] },
+    "추진력": { "drive": [6, 7, 8], "behavioral": [9, 10, 11] },
+    "연결력": { "drive": [12, 13, 14], "behavioral": [15, 16, 17] },
+    "조율력": { "drive": [18, 19, 20], "behavioral": [21, 22, 23] },
+    "창발력": { "drive": [24, 25, 26], "behavioral": [27, 28, 29] },
+    "성장력": { "drive": [30, 31, 32], "behavioral": [33, 34, 35] }
+  },
+
+  "chart_config": {
+    "primary": "radar",
+    "secondary": ["grouped-bar", "burnout-table"],
+    "radarKeys": ["통찰력", "추진력", "연결력", "조율력", "창발력", "성장력"],
+    "groupedBarConfig": {
+      "groups": ["통찰력", "추진력", "연결력", "조율력", "창발력", "성장력"],
+      "series": [
+        { "key": "drive", "label": "욕구 강점", "color": "#1A6B3C" },
+        { "key": "behavioral", "label": "행동 강점", "color": "#7A5C1E" }
+      ],
+      "maxValue": 15
+    }
+  },
+
+  "pattern_config": {
+    "type": "burnout-risk",
+    "threshold": 4,
+    "gapPatterns": [
+      {
+        "pattern": "drive_high_behavioral_high",
+        "label": "핵심 강점",
+        "labelEn": "Core Strength",
+        "condition": "drive >= 11 AND behavioral >= 11",
+        "description": "자연스럽고 실제로도 발휘되는 강점입니다. 이 강점을 중심으로 역할과 경력을 설계하세요."
+      },
+      {
+        "pattern": "drive_high_behavioral_low",
+        "label": "잠재 강점",
+        "labelEn": "Latent Strength",
+        "condition": "drive >= 11 AND behavioral < 11",
+        "description": "욕구는 강하지만 현재 활용하지 못하는 강점입니다. 잡크래프팅을 통해 업무에서 이 강점을 발휘할 기회를 찾으세요."
+      },
+      {
+        "pattern": "drive_low_behavioral_high",
+        "label": "노력형 강점 (번아웃 주의)",
+        "labelEn": "Effortful Strength (Burnout Risk)",
+        "condition": "drive < 11 AND behavioral >= 11",
+        "description": "노력으로 발휘되는 강점입니다. 성과는 내지만 소진 위험이 있습니다. 이 영역에 너무 많은 에너지를 쓰고 있지 않은지 점검하세요."
+      },
+      {
+        "pattern": "drive_low_behavioral_low",
+        "label": "개발 영역",
+        "labelEn": "Development Area",
+        "condition": "drive < 11 AND behavioral < 11",
+        "description": "현재 덜 활성화된 영역입니다. 부족함이 아닌 '다름'이며, 팀 내 보완 전략을 고려하세요."
+      }
+    ]
+  },
+
+  "interpretations": {
+    "통찰력": {
+      "name": "통찰력",
+      "nameEn": "Insight & Strategy",
+      "color": "#2E75B6",
+      "bgColor": "#DEEAF6",
+      "icon": "🔍",
+      "viaAlignment": "지혜(Wisdom): 호기심, 판단력, 개방성, 학구열",
+      "tanagementAlignment": "평가(Evaluate), 탐구(Explore)",
+      "coreDescription": "상황의 본질을 꿰뚫어 보고, 정보를 종합하여 방향을 제시하는 힘. 복잡한 데이터 속에서 패턴을 인식하고, 다른 사람이 보지 못하는 핵심을 발견합니다.",
+      "strengthBehaviors": [
+        "복잡한 문제의 근본 원인을 빠르게 파악한다",
+        "여러 정보를 연결하여 전략적 방향을 제시한다",
+        "데이터에 기반한 논리적 의사결정을 이끈다",
+        "미래 리스크를 예측하고 선제적으로 대비한다"
+      ],
+      "shadowSide": [
+        "분석에 지나치게 몰두하여 실행이 지연될 수 있다",
+        "다른 사람의 직관이나 감정을 과소평가할 수 있다",
+        "완벽한 정보를 기다리느라 타이밍을 놓칠 수 있다"
+      ],
+      "bestRoles": "전략 기획, 데이터 분석, 시장조사, 컨설팅, 정책 수립",
+      "teamContribution": "방향 제시, 의사결정 지원, 리스크 분석, 정보 종합",
+      "growthStrategy": "다양한 관점 수용 연습, 직감과 분석의 균형, '충분히 좋은' 의사결정 훈련",
+      "scoreRanges": {
+        "high": { "min": 25, "max": 30, "label": "핵심 강점", "description": "가장 빛나는 영역입니다. 전략적 사고와 분석이 자연스럽게 발현됩니다." },
+        "medium": { "min": 19, "max": 24, "label": "보유 강점", "description": "잠재력이 높은 영역입니다. 의식적 활용으로 더욱 성장할 수 있습니다." },
+        "low": { "min": 13, "max": 18, "label": "잠재 강점", "description": "상황에 따라 발현됩니다. 경험과 학습으로 개발 가능합니다." },
+        "developing": { "min": 6, "max": 12, "label": "개발 영역", "description": "현재 덜 활용되는 영역입니다. 팀 내 보완 전략을 고려하세요." }
+      }
+    },
+
+    "추진력": {
+      "name": "추진력",
+      "nameEn": "Drive & Execution",
+      "color": "#C55A11",
+      "bgColor": "#FBE5D5",
+      "icon": "🚀",
+      "viaAlignment": "용기(Courage): 용감성, 끈기, 진실성, 활력",
+      "tanagementAlignment": "몰입(Focus), 비교(Compare)",
+      "coreDescription": "목표를 향해 끝까지 밀고 나가며, 결과를 만들어내는 힘. 불확실한 상황에서도 결단하고, 장애물을 넘어 성과를 창출합니다.",
+      "strengthBehaviors": [
+        "목표를 설정하면 끈기 있게 끝까지 추진한다",
+        "어려운 상황에서도 포기하지 않고 대안을 찾는다",
+        "약속과 기한을 철저히 지킨다",
+        "불확실해도 결정을 내리고 행동으로 옮긴다"
+      ],
+      "shadowSide": [
+        "완벽주의로 인해 번아웃 위험이 있다",
+        "다른 사람에게 같은 수준의 추진력을 기대할 수 있다",
+        "과정보다 결과에 집착하여 관계를 소홀히 할 수 있다"
+      ],
+      "bestRoles": "프로젝트 관리, 영업, 운영 관리, 사업 개발, 스타트업",
+      "teamContribution": "마감 준수, 실행 추진, 목표 달성 견인, 위기 돌파",
+      "growthStrategy": "완벽주의 경계, 위임과 협업 스킬 강화, '과정' 자체를 인정하는 연습",
+      "scoreRanges": {
+        "high": { "min": 25, "max": 30, "label": "핵심 강점", "description": "강력한 실행력의 소유자입니다. 목표 달성에 탁월한 추진력을 보입니다." },
+        "medium": { "min": 19, "max": 24, "label": "보유 강점", "description": "안정적인 실행력을 보유하고 있습니다. 의식적 도전으로 더 강해질 수 있습니다." },
+        "low": { "min": 13, "max": 18, "label": "잠재 강점", "description": "관심 있는 영역에서 집중력이 발휘됩니다. 동기부여 전략이 핵심입니다." },
+        "developing": { "min": 6, "max": 12, "label": "개발 영역", "description": "신중하고 세밀한 접근을 선호합니다. 작은 목표부터 설정해 보세요." }
+      }
+    },
+
+    "연결력": {
+      "name": "연결력",
+      "nameEn": "Connection & Empathy",
+      "color": "#548235",
+      "bgColor": "#E2EFDA",
+      "icon": "🤝",
+      "viaAlignment": "자애(Humanity): 사랑, 친절성, 사회지능",
+      "tanagementAlignment": "양성(Develop), 관계(Relate)",
+      "coreDescription": "사람과 사람 사이를 이어주며, 신뢰 관계를 구축하는 힘. 타인의 감정을 민감하게 읽고, 진정성 있는 소통으로 팀의 정서적 안전망 역할을 합니다.",
+      "strengthBehaviors": [
+        "동료의 감정과 필요를 민감하게 알아차린다",
+        "진심 어린 경청으로 신뢰 관계를 구축한다",
+        "팀의 정서적 분위기를 자연스럽게 조성한다",
+        "어려운 동료에게 먼저 다가가 도움을 제안한다"
+      ],
+      "shadowSide": [
+        "타인 돌봄에 에너지를 소진할 수 있다 (감정 번아웃)",
+        "갈등 회피 경향으로 필요한 직면을 미룰 수 있다",
+        "건강한 경계 설정이 어려울 수 있다"
+      ],
+      "bestRoles": "HR, 고객관리, 교육/코칭, 서비스 기획, 조직문화",
+      "teamContribution": "팀 분위기 조성, 신뢰 구축, 소통 촉진, 갈등 완화",
+      "growthStrategy": "건강한 경계 설정 연습, 감정 에너지 관리, 직접적 피드백 스킬 개발",
+      "scoreRanges": {
+        "high": { "min": 25, "max": 30, "label": "핵심 강점", "description": "뛰어난 공감 능력을 가진 팀의 정서적 중심입니다." },
+        "medium": { "min": 19, "max": 24, "label": "보유 강점", "description": "따뜻한 관계 형성 능력이 있습니다. 경청 스킬을 더 개발해 보세요." },
+        "low": { "min": 13, "max": 18, "label": "잠재 강점", "description": "친한 사람과의 관계에서 강점이 드러납니다. 범위를 넓혀보세요." },
+        "developing": { "min": 6, "max": 12, "label": "개발 영역", "description": "독립적 업무를 선호합니다. 객관적 분석에 강점이 있을 수 있습니다." }
+      }
+    },
+
+    "조율력": {
+      "name": "조율력",
+      "nameEn": "Harmony & Coordination",
+      "color": "#7030A0",
+      "bgColor": "#E8D5F5",
+      "icon": "⚖️",
+      "viaAlignment": "정의(Justice): 공정성, 시민정신, 리더십",
+      "tanagementAlignment": "조화(Harmonize), 중재(Mediate)",
+      "coreDescription": "다양한 의견과 이해관계를 하나로 모아 합의를 이끌어내는 힘. 갈등 상황에서 균형 잡힌 시각으로 중재하며, 공정한 의사결정을 지향합니다.",
+      "strengthBehaviors": [
+        "대립하는 입장을 균형 있게 이해한다",
+        "합의점과 절충안을 창의적으로 도출한다",
+        "격한 상황에서도 차분한 대화를 유지한다",
+        "공정한 원칙을 일관되게 적용한다"
+      ],
+      "shadowSide": [
+        "본인 의견 표현이 약해질 수 있다",
+        "타협에 치우쳐 최적 해를 놓칠 수 있다",
+        "모두를 만족시키려다 결정이 지연될 수 있다"
+      ],
+      "bestRoles": "중간관리, 노사관계, 조직문화, 협상, 중재",
+      "teamContribution": "갈등 중재, 합의 도출, 다양성 통합, 공정한 의사결정",
+      "growthStrategy": "본인 의견 표현 연습, 결단력 강화, '충분히 좋은 합의' 인정하기",
+      "scoreRanges": {
+        "high": { "min": 25, "max": 30, "label": "핵심 강점", "description": "탁월한 중재자입니다. 다양성을 하나로 모으는 능력이 빛납니다." },
+        "medium": { "min": 19, "max": 24, "label": "보유 강점", "description": "균형 감각이 좋습니다. 더 적극적인 중재 역할을 시도해 보세요." },
+        "low": { "min": 13, "max": 18, "label": "잠재 강점", "description": "특정 상황에서 조율 역할이 발휘됩니다. 경험으로 확대 가능합니다." },
+        "developing": { "min": 6, "max": 12, "label": "개발 영역", "description": "명확한 입장 표명을 선호합니다. 의사결정 속도에 강점이 있을 수 있습니다." }
+      }
+    },
+
+    "창발력": {
+      "name": "창발력",
+      "nameEn": "Innovation & Creation",
+      "color": "#BF8F00",
+      "bgColor": "#FFF2CC",
+      "icon": "💡",
+      "viaAlignment": "창의성(Creativity): 독창적 사고, 감상력, 열정",
+      "tanagementAlignment": "창의(Ideate), 문제발견(Critic)",
+      "coreDescription": "기존의 틀을 넘어 새로운 가치와 해결책을 만들어내는 힘. 서로 다른 영역의 아이디어를 연결하고, 발상의 전환으로 팀에 영감을 제공합니다.",
+      "strengthBehaviors": [
+        "기존 방식에 건설적 의문을 제기한다",
+        "이질적 분야의 아이디어를 융합하여 새로운 해결책을 만든다",
+        "번뜩이는 아이디어로 팀에 영감을 준다",
+        "실패를 두려워하지 않고 새로운 시도를 즐긴다"
+      ],
+      "shadowSide": [
+        "아이디어에 매료되어 기존 일의 마무리가 약해질 수 있다",
+        "현실적 제약을 간과할 수 있다",
+        "구조화·체계화에 약점이 있을 수 있다"
+      ],
+      "bestRoles": "R&D, 마케팅, 디자인, 신사업 기획, UX, 콘텐츠",
+      "teamContribution": "새로운 관점 제공, 혁신 아이디어 발의, 문제 재정의",
+      "growthStrategy": "아이디어의 실행력 보완, 구조화 역량 개발, '선택과 집중' 훈련",
+      "scoreRanges": {
+        "high": { "min": 25, "max": 30, "label": "핵심 강점", "description": "혁신의 원천입니다. 아이디어의 질과 양 모두에서 탁월합니다." },
+        "medium": { "min": 19, "max": 24, "label": "보유 강점", "description": "창의적 잠재력이 높습니다. 실행력과 결합하면 폭발적 성과가 가능합니다." },
+        "low": { "min": 13, "max": 18, "label": "잠재 강점", "description": "관심 분야에서 창의성이 발휘됩니다. 다양한 자극이 촉매제가 됩니다." },
+        "developing": { "min": 6, "max": 12, "label": "개발 영역", "description": "검증된 방식의 마스터입니다. 안정적 운영에 강점이 있을 수 있습니다." }
+      }
+    },
+
+    "성장력": {
+      "name": "성장력",
+      "nameEn": "Growth & Transcendence",
+      "color": "#2E8B8B",
+      "bgColor": "#D5F0F0",
+      "icon": "🌱",
+      "viaAlignment": "초월(Transcendence): 학구열, 감사, 낙관성, 영성",
+      "tanagementAlignment": "양성(Develop), 회고(Reflect)",
+      "coreDescription": "자신과 타인의 잠재력을 발견하고 의미 있는 성장을 이끄는 힘. 피드백을 수용하고 성찰하며, 일상에서 감사와 의미를 찾고, 주변 사람의 성장을 적극 지원합니다.",
+      "strengthBehaviors": [
+        "부족한 점을 인식하고 꾸준히 개선한다",
+        "타인의 성장을 위해 경험과 노하우를 나눈다",
+        "작은 성취에서도 감사와 의미를 발견한다",
+        "실수로부터 교훈을 도출하고 다음에 반영한다"
+      ],
+      "shadowSide": [
+        "자기 성장에 소홀해질 수 있다 (타인 우선)",
+        "완급 조절 없이 지속적 성장을 추구하여 지칠 수 있다",
+        "현재 성과보다 미래 가능성에 치우칠 수 있다"
+      ],
+      "bestRoles": "교육, 코칭, 멘토링, 조직개발(OD), 학습설계",
+      "teamContribution": "동료 역량 개발 지원, 학습 문화 조성, 피드백 문화 선도",
+      "growthStrategy": "자기 성장에도 투자하기, 완급 조절 연습, 현재 성과 인정하기",
+      "scoreRanges": {
+        "high": { "min": 25, "max": 30, "label": "핵심 강점", "description": "성장의 촉매자입니다. 자신과 조직의 지속적 발전을 이끕니다." },
+        "medium": { "min": 19, "max": 24, "label": "보유 강점", "description": "학습에 대한 열의가 있습니다. 의식적으로 범위를 넓혀보세요." },
+        "low": { "min": 13, "max": 18, "label": "잠재 강점", "description": "특정 관심사에서 깊은 학습을 합니다. 영역 확장이 가능합니다." },
+        "developing": { "min": 6, "max": 12, "label": "개발 영역", "description": "현재 역량 활용에 집중합니다. 즉시적 성과 창출에 강점이 있을 수 있습니다." }
+      }
+    },
+
+    "_gapInterpretation": {
+      "title": "욕구-행동 간극 해석",
+      "description": "같은 강점이라도 욕구(Drive)에서 나오는지, 환경·역할에서 학습된 행동(Behavioral)인지에 따라 지속가능성이 다릅니다.",
+      "patterns": {
+        "core": {
+          "condition": "drive ≥ 11 AND behavioral ≥ 11",
+          "label": "핵심 강점 (Core)",
+          "emoji": "⭐",
+          "description": "자연스럽고 실제로도 발휘되는 진정한 강점입니다.",
+          "action": "이 강점을 중심으로 역할과 경력을 설계하세요. 더 높은 수준으로 개발하면 탁월성이 됩니다."
+        },
+        "latent": {
+          "condition": "drive ≥ 11 AND behavioral < 11",
+          "label": "잠재 강점 (Latent)",
+          "emoji": "🔑",
+          "description": "욕구는 강하지만 현재 업무에서 활용하지 못하고 있는 강점입니다.",
+          "action": "잡크래프팅을 통해 업무에서 이 강점을 발휘할 기회를 찾으세요. 동기부여 저하의 원인일 수 있습니다."
+        },
+        "effortful": {
+          "condition": "drive < 11 AND behavioral ≥ 11",
+          "label": "노력형 강점 (Effortful) ⚠️",
+          "emoji": "⚠️",
+          "description": "내면의 욕구가 아니라 환경·역할 때문에 발휘되고 있는 강점입니다.",
+          "action": "번아웃 위험이 있습니다. 이 영역에 쏟는 에너지 대비 만족감을 점검하세요. 욕구 강점이 높은 영역으로 에너지를 재배치하는 것을 고려하세요."
+        },
+        "developing": {
+          "condition": "drive < 11 AND behavioral < 11",
+          "label": "개발 영역 (Developing)",
+          "emoji": "🌿",
+          "description": "현재 덜 활성화된 영역입니다.",
+          "action": "부족함이 아닌 '다름'입니다. 팀 내에서 이 영역이 강한 동료와 협업하는 전략을 고려하세요."
+        }
+      }
+    },
+
+    "_attitudeMatrix": {
+      "title": "강점-태도 매트릭스",
+      "description": "각 강점이 빛나기 위해 필요한 핵심 태도입니다. ● = 특히 중요한 태도",
+      "matrix": {
+        "통찰력": { "촉진": ["용기", "확신"], "보호": ["겸손", "관용"] },
+        "추진력": { "촉진": ["자신감", "긍정"], "보호": ["절제", "배려"] },
+        "연결력": { "촉진": ["긍정", "진정성"], "보호": ["관용", "겸손"] },
+        "조율력": { "촉진": ["용기", "확신"], "보호": ["공정", "배려"] },
+        "창발력": { "촉진": ["자신감", "배움"], "보호": ["절제", "책임"] },
+        "성장력": { "촉진": ["긍정", "배움"], "보호": ["겸손", "감사"] }
+      }
+    }
+  },
+
+  "is_active": true,
+  "sort_order": 2
+}
