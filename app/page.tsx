@@ -105,8 +105,9 @@ export default function Home() {
             BEAM 프레임워크로 나를 더 깊이 이해하세요
           </p>
 
-          {/* BEAM 4항목 — 모바일 2×2, PC 1×4 */}
-          <div className="mt-6 grid grid-cols-2 sm:flex sm:justify-center gap-3 max-w-xs sm:max-w-none mx-auto">
+          {/* BEAM 4항목 — 모바일 4×1 한줄씩, PC 1×4 가로 */}
+          {/* PC */}
+          <div className="mt-6 hidden sm:flex justify-center gap-3">
             {ZONE_ORDER.map((z) => {
               const info = ZONE_CONFIG[z];
               return (
@@ -117,6 +118,17 @@ export default function Home() {
                   <span className="block text-[10px] text-ink-inverse/40 mt-0.5">
                     {info.questionKo}
                   </span>
+                </span>
+              );
+            })}
+          </div>
+          {/* 모바일 */}
+          <div className="mt-6 flex flex-col items-center gap-2 sm:hidden">
+            {ZONE_ORDER.map((z) => {
+              const info = ZONE_CONFIG[z];
+              return (
+                <span key={z} className="rounded-full border border-ink-inverse/20 px-5 py-1.5 text-xs text-ink-inverse/70">
+                  <span className="text-amber-brand font-bold">{info.beam}</span> {info.labelKo} <span className="text-ink-inverse/30">—</span> {info.questionKo}
                 </span>
               );
             })}
