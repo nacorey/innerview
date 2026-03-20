@@ -99,23 +99,19 @@ export default function Home() {
             BEAM 프레임워크로 나를 더 깊이 이해하세요
           </p>
 
-          {/* BEAM 4항목 — 2×2 그리드 */}
-          <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 max-w-md mx-auto">
+          {/* BEAM 4항목 — 1×4 pill */}
+          <div className="mt-6 flex justify-center gap-3">
             {ZONE_ORDER.map((z) => {
               const info = ZONE_CONFIG[z];
-              const colors = ZONE_COLORS[z];
               return (
-                <div key={z} className="text-center">
-                  <div className="flex items-center justify-center gap-1.5">
-                    <span
-                      className={`inline-flex items-center justify-center w-5 h-5 rounded text-[10px] font-black text-white ${colors.accent}`}
-                    >
-                      {info.beam}
-                    </span>
-                    <span className="text-sm font-bold text-ink-inverse/90">{info.labelKo}</span>
-                  </div>
-                  <p className="text-xs text-ink-inverse/40 mt-0.5">{info.questionKo}</p>
-                </div>
+                <span key={z} className="rounded-full border border-ink-inverse/20 px-4 py-1.5 text-center">
+                  <span className="block text-xs font-bold text-ink-inverse/80">
+                    {info.beam} {info.labelKo}
+                  </span>
+                  <span className="block text-[10px] text-ink-inverse/40 mt-0.5">
+                    {info.questionKo}
+                  </span>
+                </span>
               );
             })}
           </div>
