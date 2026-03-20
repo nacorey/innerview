@@ -16,9 +16,30 @@ export function detectEgogramPattern(scores: Record<string, number>): string {
 
   const [cp, np, a, fc, ac] = values;
 
-  // 역N형: NP·FC 높고 CP·A·AC 낮음 (가장 이상적)
-  if (np > a && fc > a && np >= cp && fc >= ac) {
-    if (a <= np && a <= fc) return "역N형";
+  // 봉우리/골짜기 판별 (양옆보다 높으면 봉우리, 낮으면 골짜기)
+  const npIsPeak = np > cp && np > a;
+  const fcIsPeak = fc > a && fc > ac;
+  const aIsValley = a < np && a < fc;
+  const cpIsValley = cp < np;
+  const acIsValley = ac < fc;
+
+  // M형: CP↓ NP↑ A↓ FC↑ AC↓ — 봉우리 2개(NP,FC) + 골짜기 3개(CP,A,AC)
+  // 세 골짜기 모두 뚜렷해야 함
+  if (npIsPeak && fcIsPeak && aIsValley && cpIsValley && acIsValley) {
+    const avgPeak = (np + fc) / 2;
+    const avgValley = (cp + a + ac) / 3;
+    // 봉우리와 골짜기 차이가 뚜렷하면 M형
+    if (avgPeak - avgValley >= 3) return "M형";
+  }
+
+  // 역N형: NP·FC가 높고 완만한 물결. M형보다 CP나 AC가 상대적으로 높음
+  if (npIsPeak && fcIsPeak && aIsValley) {
+    return "역N형";
+  }
+
+  // W형: NP와 FC가 골짜기, CP·A·AC가 봉우리 (M형의 반전)
+  if (cp > np && a > np && a > fc && ac > fc && np < a && fc < a) {
+    return "W형";
   }
 
   // N형: CP·A·AC 높고 NP·FC 낮음
@@ -27,18 +48,8 @@ export function detectEgogramPattern(scores: Record<string, number>): string {
   }
 
   // V형: A가 가장 낮고 양끝(CP, AC)이 높음
-  if (a === min && cp > a && ac > a) {
+  if (a === min && cp > a + 2 && ac > a + 2) {
     return "V형";
-  }
-
-  // W형: NP와 FC가 낮고 CP, A, AC가 높음
-  if (cp > np && a > np && a > fc && ac > fc && np < a && fc < a) {
-    return "W형";
-  }
-
-  // M형: NP와 FC가 높고 CP, A, AC가 낮음
-  if (np > cp && np > a && fc > a && fc > ac) {
-    return "M형";
   }
 
   // 우상향형: CP→AC로 갈수록 점수 증가
@@ -51,7 +62,6 @@ export function detectEgogramPattern(scores: Record<string, number>): string {
     return "우하향형";
   }
 
-  // 기본값: 가장 높은 카테고리 기준
   return "혼합형";
 }
 
