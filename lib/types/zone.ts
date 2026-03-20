@@ -1,21 +1,23 @@
-// === 3-Zone Framework Types ===
+// === BEAM Framework Types ===
+// B=Being, E=Engaging, A=Acting, M=Mindset
 
 export type Zone = 'A' | 'B' | 'C' | 'M';
 
 export interface ZoneInfo {
   zone: Zone;
-  label: string;        // 'Being' | 'Relating' | 'Doing' | 'Moderator'
-  labelKo: string;      // '존재' | '관계' | '실행' | '조절변수'
-  question: string;     // 'Who am I?' | 'How do I connect?' | ...
+  beam: string;         // BEAM letter: 'B' | 'E' | 'A' | 'M'
+  label: string;        // 'Being' | 'Engaging' | 'Acting' | 'Mindset'
+  labelKo: string;      // '존재' | '소통' | '행동' | '마인드셋'
+  question: string;     // 'Who am I?' | 'How do I engage?' | ...
   questionKo: string;   // '나는 누구인가?' | ...
   color: string;        // Tailwind color class
 }
 
 export const ZONE_CONFIG: Record<Zone, ZoneInfo> = {
-  A: { zone: 'A', label: 'Being', labelKo: '존재', question: 'Who am I?', questionKo: '나는 누구인가?', color: 'purple' },
-  B: { zone: 'B', label: 'Relating', labelKo: '관계', question: 'How do I connect?', questionKo: '어떻게 연결되는가?', color: 'teal' },
-  C: { zone: 'C', label: 'Doing', labelKo: '실행', question: 'How do I act?', questionKo: '어떻게 행동하는가?', color: 'coral' },
-  M: { zone: 'M', label: 'Moderator', labelKo: '조절변수', question: 'What enables or blocks?', questionKo: '무엇이 촉진/억제하는가?', color: 'amber' },
+  A: { zone: 'A', beam: 'B', label: 'Being', labelKo: '존재', question: 'Who am I?', questionKo: '나는 누구인가?', color: 'purple' },
+  B: { zone: 'B', beam: 'E', label: 'Engaging', labelKo: '소통', question: 'How do I engage?', questionKo: '어떻게 소통하는가?', color: 'teal' },
+  C: { zone: 'C', beam: 'A', label: 'Acting', labelKo: '행동', question: 'How do I act?', questionKo: '어떻게 행동하는가?', color: 'coral' },
+  M: { zone: 'M', beam: 'M', label: 'Mindset', labelKo: '마인드셋', question: 'What is my inner ground?', questionKo: '나의 마음 기반은?', color: 'amber' },
 };
 
 // K-WSD drive/behavioral split scoring

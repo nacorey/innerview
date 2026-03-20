@@ -35,7 +35,7 @@ export function IntegratedProfile({ profile }: Props) {
                   border: `1px solid ${done ? `var(--color-${info.color}-200, #bbf7d0)` : "#e9ecef"}`,
                 }}
               >
-                {done ? "✓" : "○"} Zone {z}: {info.labelKo}
+                {done ? "✓" : "○"} {info.beam}: {info.labelKo}
               </span>
             );
           })}

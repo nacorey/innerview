@@ -42,9 +42,9 @@ function normalize(raw: any): DiagnosticToolConfig {
 // Zone assignments for legacy seed files that don't have zone fields
 const ZONE_DEFAULTS: Record<string, { zone: string; zoneLabel: string; zoneOrder: number }> = {
   "bfi2": { zone: "A", zoneLabel: "Being", zoneOrder: 1 },
-  "ta-egogram": { zone: "B", zoneLabel: "Relating", zoneOrder: 2 },
-  "nlp-vak": { zone: "B", zoneLabel: "Relating", zoneOrder: 1 },
-  "conflict-style": { zone: "C", zoneLabel: "Doing", zoneOrder: 1 },
+  "ta-egogram": { zone: "B", zoneLabel: "Engaging", zoneOrder: 2 },
+  "nlp-vak": { zone: "B", zoneLabel: "Engaging", zoneOrder: 1 },
+  "conflict-style": { zone: "C", zoneLabel: "Acting", zoneOrder: 1 },
 };
 
 // Supabase 연결 전까지 JSON 시드 파일에서 직접 로딩

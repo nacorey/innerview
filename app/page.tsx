@@ -69,14 +69,14 @@ export default function Home() {
             나를 들여다보는 시간
           </p>
           <p className="mt-5 text-lg text-ink-inverse/60">
-            3-Zone 프레임워크로 나를 더 깊이 이해하세요
+            BEAM 프레임워크로 나를 더 깊이 이해하세요
           </p>
           <div className="mt-6 flex justify-center gap-3 text-xs">
-            {ZONE_ORDER.filter((z) => z !== "M").map((z) => {
+            {ZONE_ORDER.map((z) => {
               const info = ZONE_CONFIG[z];
               return (
                 <span key={z} className="rounded-full border border-ink-inverse/20 px-3 py-1 text-ink-inverse/60">
-                  {info.labelKo} — {info.questionKo}
+                  <strong className="text-ink-inverse/80">{info.beam}</strong> {info.labelKo} — {info.questionKo}
                 </span>
               );
             })}
@@ -97,12 +97,11 @@ export default function Home() {
               {/* Zone header */}
               <div className="flex items-center gap-3 mb-4">
                 <div className={`w-8 h-8 rounded-lg ${colors.accent} flex items-center justify-center`}>
-                  <span className="text-white text-sm font-black font-display">{zone}</span>
+                  <span className="text-white text-sm font-black font-display">{info.beam}</span>
                 </div>
                 <div>
                   <h2 className={`text-lg font-black ${colors.text}`}>
-                    {zone === "M" ? "🌱 " : `Zone ${zone}: `}
-                    {info.labelKo}
+                    {info.beam}: {info.label} — {info.labelKo}
                   </h2>
                   <p className="text-xs text-ink-muted">{info.questionKo}</p>
                 </div>
