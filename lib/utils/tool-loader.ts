@@ -22,7 +22,10 @@ function normalize(raw: any): DiagnosticToolConfig {
     nameEn: raw.nameEn ?? raw.name_en,
     description: raw.description,
     icon: raw.icon,
-    questions: raw.questions,
+    questions: raw.questions.map((q: Record<string, unknown>) => ({
+      ...q,
+      id: q.id ?? q.index,
+    })),
     scaleType: raw.scaleType ?? raw.scale_type,
     scaleOptions: raw.scaleOptions ?? raw.scale_options,
     categoryMap: raw.categoryMap ?? raw.category_map,
