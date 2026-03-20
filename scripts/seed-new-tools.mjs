@@ -8,8 +8,13 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const SUPABASE_URL = "https://lcohiwscnttupqohbpmv.supabase.co";
-const SUPABASE_KEY = "sb_secret_LC5LC2kPjNVSWQnlsa-gsg_5vylw1HK";
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error("Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY env vars");
+  process.exit(1);
+}
 
 const SEED_FILES = ["kwsd.json", "leadership.json", "followership.json", "attitude.json"];
 
