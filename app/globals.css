@@ -98,13 +98,13 @@ body {
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.5; filter: blur(12px); }
-  50% { opacity: 0.85; filter: blur(16px); }
+  0%, 100% { opacity: 0.6; filter: blur(10px); }
+  50% { opacity: 1; filter: blur(14px); }
 }
 
 @keyframes beamShimmer {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
 }
 
 /* ─── Print ─── */

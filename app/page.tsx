@@ -64,27 +64,29 @@ export default function Home() {
         <div className="mx-auto max-w-4xl px-6 py-24 text-center">
           <h1 className="text-5xl sm:text-6xl font-black tracking-tight text-ink-inverse">
             <span className="relative inline-block">
-              {/* 빛줄기 — I 위에서 아래로 내려오는 빛 */}
+              {/* 방사형 빛 — I 위에서 부채꼴로 내리쬠 */}
               <span
-                className="absolute left-1/2 -translate-x-1/2 -top-14 w-[1.5px] h-12 pointer-events-none"
+                className="absolute left-1/2 -translate-x-1/2 -top-20 w-32 h-28 pointer-events-none"
                 style={{
-                  background: "linear-gradient(to bottom, transparent 0%, rgba(243,156,18,0.15) 40%, rgba(243,156,18,0.5) 100%)",
+                  background: "conic-gradient(from 160deg at 50% 0%, transparent 0deg, rgba(243,156,18,0.25) 170deg, rgba(243,156,18,0.45) 180deg, rgba(243,156,18,0.25) 190deg, transparent 360deg)",
+                  maskImage: "linear-gradient(to bottom, white 20%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, white 20%, transparent 100%)",
                   animation: "beamShimmer 3s ease-in-out infinite",
                 }}
               />
-              {/* 글로우 오브 — I 위 빛의 원천 */}
+              {/* 글로우 오브 — 빛의 원천 */}
               <span
-                className="absolute left-1/2 -translate-x-1/2 -top-3 w-10 h-10 rounded-full pointer-events-none"
+                className="absolute left-1/2 -translate-x-1/2 -top-4 w-14 h-14 rounded-full pointer-events-none"
                 style={{
-                  background: "radial-gradient(circle, rgba(243,156,18,0.35) 0%, transparent 70%)",
+                  background: "radial-gradient(circle, rgba(243,156,18,0.5) 0%, rgba(243,156,18,0.2) 40%, transparent 70%)",
                   animation: "glowPulse 3s ease-in-out infinite",
                 }}
               />
-              {/* I 글자 — 따뜻한 빛 효과 */}
+              {/* I 글자 — 강한 빛 효과 */}
               <span
                 className="relative text-amber-brand"
                 style={{
-                  textShadow: "0 0 24px rgba(243,156,18,0.4), 0 0 48px rgba(243,156,18,0.15), 0 2px 4px rgba(243,156,18,0.3)",
+                  textShadow: "0 0 20px rgba(243,156,18,0.6), 0 0 40px rgba(243,156,18,0.3), 0 0 80px rgba(243,156,18,0.15)",
                 }}
               >
                 I
