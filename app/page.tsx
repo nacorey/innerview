@@ -105,8 +105,8 @@ export default function Home() {
             BEAM 프레임워크로 나를 더 깊이 이해하세요
           </p>
 
-          {/* BEAM 4항목 — 1×4 pill */}
-          <div className="mt-6 flex justify-center gap-3">
+          {/* BEAM 4항목 — 모바일 2×2, PC 1×4 */}
+          <div className="mt-6 grid grid-cols-2 sm:flex sm:justify-center gap-3 max-w-xs sm:max-w-none mx-auto">
             {ZONE_ORDER.map((z) => {
               const info = ZONE_CONFIG[z];
               return (
