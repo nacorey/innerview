@@ -3,7 +3,10 @@
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getToolBySlug } from "@/lib/utils/tool-loader";
+import { calculateScores } from "@/lib/scoring/engine";
+import { detectPattern } from "@/lib/utils/pattern-detect";
 import { ResultScreen } from "@/components/diagnostic/ResultScreen";
+import type { SplitScore, BurnoutRisk } from "@/lib/types/zone";
 import Link from "next/link";
 
 interface StoredResult {
@@ -11,7 +14,10 @@ interface StoredResult {
   toolSlug: string;
   toolName: string;
   toolIcon: string;
+  answers?: Record<number, number | Record<string, number>>;
   scores: Record<string, number>;
+  subScores?: Record<string, SplitScore>;
+  burnoutRisk?: BurnoutRisk[];
   patternType?: string;
   completedAt: string;
 }
@@ -55,9 +61,32 @@ export default function ResultDetailPage() {
     );
   }
 
+  // answers가 있으면 현재 로직으로 재계산, 없으면 저장된 값 사용 (하위 호환)
+  let scores = result.scores;
+  let subScores = result.subScores;
+  let burnoutRisk = result.burnoutRisk;
+  let patternType = result.patternType;
+
+  if (result.answers && Object.keys(result.answers).length > 0) {
+    const recalculated = calculateScores(config, result.answers);
+    scores = recalculated.scores;
+    subScores = recalculated.subScores;
+    burnoutRisk = recalculated.burnoutRisk;
+
+    if (config.patternConfig) {
+      patternType = detectPattern(config.patternConfig.type, scores);
+    }
+  }
+
   return (
     <div>
-      <ResultScreen config={config} scores={result.scores} patternType={result.patternType} />
+      <ResultScreen
+        config={config}
+        scores={scores}
+        subScores={subScores}
+        burnoutRisk={burnoutRisk}
+        patternType={patternType}
+      />
       <div className="mx-auto max-w-[720px] px-6 pb-12 flex justify-center gap-3">
         <Link
           href="/my"

@@ -10,6 +10,7 @@ import Link from "next/link";
 function saveResultToLocal(
   config: { slug: string; name: string; icon: string },
   result: {
+    answers: Record<number, number | Record<string, number>>;
     scores: Record<string, number>;
     subScores?: Record<string, { drive: number; behavioral: number; total: number }>;
     patternType?: string;
@@ -24,6 +25,7 @@ function saveResultToLocal(
       toolSlug: config.slug,
       toolName: config.name,
       toolIcon: config.icon,
+      answers: result.answers,
       scores: result.scores,
       subScores: result.subScores,
       patternType: result.patternType,
