@@ -106,7 +106,7 @@ export default function Home() {
               return (
                 <span key={z} className="rounded-full border border-ink-inverse/20 px-4 py-1.5 text-center">
                   <span className="block text-xs font-bold text-ink-inverse/80">
-                    {info.beam} {info.labelKo}
+                    <span className="text-amber-brand">{info.beam}</span> {info.labelKo}
                   </span>
                   <span className="block text-[10px] text-ink-inverse/40 mt-0.5">
                     {info.questionKo}
