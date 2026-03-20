@@ -1,6 +1,10 @@
 "use client";
 
 import { useAuth } from "@/components/auth/AuthProvider";
+import { createClient } from "@/lib/supabase/client";
+import { getAllTools } from "@/lib/utils/tool-loader";
+import { calculateScores } from "@/lib/scoring/engine";
+import { detectPattern } from "@/lib/utils/pattern-detect";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -9,29 +13,92 @@ interface StoredResult {
   toolSlug: string;
   toolName: string;
   toolIcon: string;
+  answers?: Record<number, number | Record<string, number>>;
   scores: Record<string, number>;
   patternType?: string;
   completedAt: string;
+  source: "local" | "db";
 }
 
-function getStoredResults(): StoredResult[] {
+function getLocalResults(): StoredResult[] {
   try {
     const raw = localStorage.getItem("diag_results");
-    return raw ? JSON.parse(raw) : [];
+    const results = raw ? JSON.parse(raw) : [];
+    return results.map((r: Record<string, unknown>) => ({ ...r, source: "local" }));
   } catch {
     return [];
   }
 }
 
+async function getDbResults(userId: string): Promise<StoredResult[]> {
+  const supabase = createClient();
+  if (!supabase) return [];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase.from("results") as any)
+    .select("id, tool_id, answers, scores, sub_scores, pattern_type, completed_at")
+    .eq("user_id", userId)
+    .order("completed_at", { ascending: false });
+
+  if (error || !data) return [];
+
+  const tools = getAllTools();
+
+  return (data as Record<string, unknown>[]).map((row) => {
+    const tool = tools.find((t) => t.id === row.tool_id);
+    const toolSlug = tool?.slug ?? "";
+    const toolConfig = tool;
+
+    // answers가 있으면 현재 로직으로 재계산
+    let scores = row.scores as Record<string, number>;
+    let patternType = row.pattern_type as string | undefined;
+
+    if (toolConfig && row.answers && typeof row.answers === "object") {
+      const answers = row.answers as Record<number, number | Record<string, number>>;
+      const recalculated = calculateScores(toolConfig, answers);
+      scores = recalculated.scores;
+      if (toolConfig.patternConfig) {
+        patternType = detectPattern(toolConfig.patternConfig.type, scores);
+      }
+    }
+
+    return {
+      id: row.id as string,
+      toolSlug,
+      toolName: tool?.name ?? "알 수 없는 도구",
+      toolIcon: tool?.icon ?? "📋",
+      answers: row.answers as Record<number, number | Record<string, number>>,
+      scores,
+      patternType,
+      completedAt: row.completed_at as string,
+      source: "db" as const,
+    };
+  });
+}
+
 export default function MyPage() {
   const { user, profile, isLoading } = useAuth();
   const [results, setResults] = useState<StoredResult[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setResults(getStoredResults());
-  }, []);
+    async function load() {
+      if (user) {
+        // 로그인: DB 우선, localStorage 병합 (중복 제거)
+        const dbResults = await getDbResults(user.id);
+        const localResults = getLocalResults();
+        const dbIds = new Set(dbResults.map((r) => r.completedAt));
+        const uniqueLocal = localResults.filter((r) => !dbIds.has(r.completedAt));
+        setResults([...dbResults, ...uniqueLocal]);
+      } else {
+        setResults(getLocalResults());
+      }
+      setLoading(false);
+    }
+    if (!isLoading) load();
+  }, [user, isLoading]);
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-brand border-t-transparent" />
@@ -79,7 +146,7 @@ export default function MyPage() {
               return (
                 <Link
                   key={result.id}
-                  href={`/my/${result.id}`}
+                  href={`/my/${result.id}${result.source === "db" ? "?src=db" : ""}`}
                   className="flex items-center gap-4 rounded-xl border border-foreground/10 p-4 transition-colors hover:bg-foreground/5"
                 >
                   <span className="text-3xl">{result.toolIcon}</span>
