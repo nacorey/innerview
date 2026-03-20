@@ -47,6 +47,16 @@ export function detectEgogramPattern(scores: Record<string, number>): string {
     return "N형";
   }
 
+  // 산형(역V형): A가 정점, 양쪽으로 내려감 (CP↗NP↗A↘FC↘AC)
+  if (a === max && a > np && a > fc && np >= cp && fc >= ac) {
+    return "산형";
+  }
+
+  // A가 높은 N형: A가 최고점이면서 NP·FC가 골짜기 (CP↗NP↓A↑FC↓AC↗)
+  if (a === max && np < a && fc < a && (cp > np || ac > fc)) {
+    return "A가 높은 N형";
+  }
+
   // V형: A가 가장 낮고 양끝(CP, AC)이 높음
   if (a === min && cp > a + 2 && ac > a + 2) {
     return "V형";
