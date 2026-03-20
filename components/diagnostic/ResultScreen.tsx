@@ -43,6 +43,10 @@ const HeatmapChart = dynamic(
   () => import("@/components/charts/HeatmapChart").then((m) => m.HeatmapChart),
   { ssr: false }
 );
+const FollowershipQuadrant = dynamic(
+  () => import("@/components/charts/FollowershipQuadrant").then((m) => m.FollowershipQuadrant),
+  { ssr: false }
+);
 
 /* ── Scroll-reveal wrapper ── */
 function Reveal({
@@ -122,7 +126,22 @@ function ChartRenderer({
       return <LineChartWrapper scores={scores} interpretations={interpretations} maxScore={maxScore} />;
     case "donut":
       return <DonutChartWrapper scores={scores} interpretations={interpretations} />;
-    case "matrix":
+    case "matrix": {
+      // 팔로워십: matrixConfig.quadrants가 있으면 FollowershipQuadrant 사용
+      const mc = chartConfig.matrixConfig as Record<string, unknown> | undefined;
+      if (mc?.quadrants && config.patternConfig?.type === "matrix-quadrant") {
+        const quadrants = mc.quadrants as { id: string; label: string; emoji: string; color: string; bgColor: string; shortDesc: string; xRange: [number, number]; yRange: [number, number]; gridArea: string }[];
+        const xKey = (mc.xAxis as { key: string })?.key ?? "적극적참여";
+        const yKey = (mc.yAxis as { key: string })?.key ?? "독립적사고";
+        // patternType은 ResultScreen에서 전달받지 않으므로 scores 기반으로 추정
+        const x = scores[xKey] ?? 0;
+        const y = scores[yKey] ?? 0;
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const { detectFollowershipPattern } = require("@/lib/utils/pattern-detect");
+        const typeId = detectFollowershipPattern(scores);
+        return <FollowershipQuadrant activeEngagement={x} independentThinking={y} typeId={typeId} quadrants={quadrants} />;
+      }
+      // 기존 matrix (갈등유형 등)
       if (!chartConfig.axisLabels) return null;
       return (
         <MatrixChart
@@ -132,6 +151,7 @@ function ChartRenderer({
           axisLabels={chartConfig.axisLabels}
         />
       );
+    }
     case "grouped-bar":
       if (!subScores) return null;
       return <GroupedBarChart splitScores={subScores} />;
@@ -174,6 +194,11 @@ export function ResultScreen({ config, scores, subScores, burnoutRisk, patternTy
   const minCat = sortedCategories[sortedCategories.length - 1]?.[0];
   const maxScore = config.chartConfig.maxScore;
   const pat = patternType ? config.patternConfig?.patterns?.[patternType] : undefined;
+
+  // 팔로워십 딥 분석: interpretations._types에서 가져옴
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const typesData = config.interpretations._types as Record<string, any> | undefined;
+  const deepType = patternType && typesData ? typesData[patternType] : undefined;
 
   return (
     <div className="bg-surface">
@@ -278,8 +303,8 @@ export function ResultScreen({ config, scores, subScores, burnoutRisk, patternTy
         </div>
       </section>
 
-      {/* ═══ PATTERN ANALYSIS ═══ */}
-      {patternType && pat && (
+      {/* ═══ PATTERN ANALYSIS (기본) ═══ */}
+      {patternType && pat && !deepType && (
         <section className="bg-surface-dark grain">
           <div className="max-w-[720px] mx-auto px-6 py-10">
             <Reveal>
@@ -299,6 +324,128 @@ export function ResultScreen({ config, scores, subScores, burnoutRisk, patternTy
             </Reveal>
           </div>
         </section>
+      )}
+
+      {/* ═══ DEEP TYPE ANALYSIS (팔로워십 등) ═══ */}
+      {deepType && (
+        <>
+          {/* Hero: 유형명 + 핵심 설명 */}
+          <section className="bg-surface-dark grain">
+            <div className="max-w-[720px] mx-auto px-6 py-10">
+              <Reveal>
+                <div className="flex items-center gap-2 mb-5">
+                  <Target className="w-5 h-5 text-amber-brand" />
+                  <h3 className="text-sm font-bold text-ink-inverse uppercase tracking-wider font-display">
+                    유형 분석
+                  </h3>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-3xl">{deepType.emoji}</span>
+                  <div>
+                    <p className="text-[26px] font-black text-ink-inverse">{deepType.name}</p>
+                    {deepType.typeTag && (
+                      <span className="inline-block mt-1 text-xs font-bold px-2.5 py-0.5 rounded-full" style={{ color: deepType.color, backgroundColor: deepType.bgColor }}>
+                        {deepType.typeTag}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="bg-surface-dark-2/60 rounded-xl p-5 border border-ink-inverse/5">
+                  <p className="text-[14px] leading-[1.9] text-ink-inverse/75">
+                    {deepType.coreDescription}
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+          </section>
+
+          {/* 특성 + 조직 가치 */}
+          <section className="max-w-[720px] mx-auto px-6 py-10">
+            {deepType.characteristics && (
+              <Reveal>
+                <h3 className="text-base font-black text-ink mb-3">핵심 특성</h3>
+                <ul className="space-y-2 mb-8">
+                  {(deepType.characteristics as string[]).map((c: string, i: number) => (
+                    <li key={i} className="text-[13px] text-ink-secondary flex items-start gap-2">
+                      <span style={{ color: deepType.color }} className="mt-0.5 shrink-0">•</span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            )}
+
+            {deepType.organizationalValue && (
+              <Reveal delay={80}>
+                <div className="rounded-2xl p-5 mb-6" style={{ background: `${deepType.color}08`, border: `1.5px solid ${deepType.color}20` }}>
+                  <h4 className="text-sm font-bold mb-2" style={{ color: deepType.color }}>조직에서의 가치</h4>
+                  <p className="text-[13px] text-ink-secondary leading-relaxed">{deepType.organizationalValue}</p>
+                </div>
+              </Reveal>
+            )}
+
+            {/* 도전과제 + 성장 팁 */}
+            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+              {deepType.potentialChallenges && (
+                <Reveal delay={100}>
+                  <div className="bg-surface-raised rounded-2xl p-5 border border-edge-subtle h-full">
+                    <h4 className="text-sm font-bold text-coral-brand mb-3">주의할 점</h4>
+                    <ul className="space-y-2">
+                      {(deepType.potentialChallenges as string[]).map((c: string, i: number) => (
+                        <li key={i} className="text-[13px] text-ink-secondary flex items-start gap-2">
+                          <span className="text-coral-brand mt-0.5 shrink-0">•</span>
+                          <span>{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Reveal>
+              )}
+              {deepType.developmentTips && (
+                <Reveal delay={160}>
+                  <div className="bg-surface-raised rounded-2xl p-5 border border-edge-subtle h-full">
+                    <h4 className="text-sm font-bold text-teal-brand mb-3 flex items-center gap-1.5">
+                      <Sprout className="w-4 h-4" /> 성장 포인트
+                    </h4>
+                    <ul className="space-y-2">
+                      {(deepType.developmentTips as string[]).map((t: string, i: number) => (
+                        <li key={i} className="text-[13px] text-ink-secondary flex items-start gap-2">
+                          <span className="text-teal-brand mt-0.5 shrink-0">•</span>
+                          <span>{t}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Reveal>
+              )}
+            </div>
+          </section>
+
+          {/* 딥 분석 (deepAnalysis) */}
+          {deepType.deepAnalysis && (
+            <section className="bg-surface-sunken">
+              <div className="max-w-[720px] mx-auto px-6 py-10">
+                <Reveal>
+                  <h3 className="text-lg font-black text-ink mb-6">깊이 있는 분석</h3>
+                </Reveal>
+                {Object.entries(deepType.deepAnalysis as Record<string, string>).map(([key, text], i) => {
+                  const labels: Record<string, string> = {
+                    identity: "정체성", innerWorld: "내면 세계", teamDynamics: "팀에서의 역할",
+                    leaderRelation: "리더와의 관계", careerImplication: "커리어 시사점", watchOut: "주의 사항",
+                  };
+                  return (
+                    <Reveal key={key} delay={i * 60}>
+                      <div className="bg-surface-raised rounded-2xl p-5 mb-3 border border-edge-subtle">
+                        <h4 className="text-sm font-bold text-ink mb-2">{labels[key] ?? key}</h4>
+                        <p className="text-[13px] leading-[1.8] text-ink-secondary">{text}</p>
+                      </div>
+                    </Reveal>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+        </>
       )}
 
       {/* ═══ CATEGORY DETAILS ═══ */}

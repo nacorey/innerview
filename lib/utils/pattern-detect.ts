@@ -122,18 +122,19 @@ export function detectDominantStyle(scores: Record<string, number>): string {
 
 /**
  * Followership: Kelley 5-type quadrant detection
+ * Returns English ID for lookup in interpretations._types
  */
 export function detectFollowershipPattern(scores: Record<string, number>): string {
   const x = scores["적극적참여"] ?? 0;
   const y = scores["독립적사고"] ?? 0;
   const mid = 30;
 
-  // Pragmatic center zone (20-40, 20-40) checked first
-  if (x >= 20 && x <= 40 && y >= 20 && y <= 40) return "실용형";
-  if (x > mid && y > mid) return "모범형";
-  if (x <= mid && y > mid) return "소외형";
-  if (x > mid && y <= mid) return "순응형";
-  return "수동형";
+  // Pragmatic center zone (20-40, 20-40) checked first (highest priority)
+  if (x >= 20 && x <= 40 && y >= 20 && y <= 40) return "pragmatic";
+  if (x > mid && y > mid) return "exemplary";
+  if (x <= mid && y > mid) return "alienated";
+  if (x > mid && y <= mid) return "conformist";
+  return "passive";
 }
 
 /**

@@ -1,45 +1,54 @@
 "use client";
 
-import type { FollowershipResult } from "@/lib/types/zone";
-
-interface Props {
-  result: FollowershipResult;
+interface QuadrantDef {
+  id: string;
+  label: string;
+  emoji: string;
+  color: string;
+  bgColor: string;
+  shortDesc: string;
+  xRange: [number, number];
+  yRange: [number, number];
+  gridArea: string;
 }
 
-const TYPE_CONFIG: Record<string, { label: string; emoji: string; color: string }> = {
-  exemplary: { label: "모범형", emoji: "⭐", color: "#1D9E75" },
-  alienated: { label: "소외형", emoji: "🌑", color: "#868e96" },
-  passive: { label: "수동형", emoji: "💤", color: "#adb5bd" },
-  conformist: { label: "순응형", emoji: "🤝", color: "#2E75B6" },
-  pragmatic: { label: "실용형", emoji: "⚖️", color: "#F39C12" },
-};
+interface Props {
+  activeEngagement: number;   // X: 0-60
+  independentThinking: number; // Y: 0-60
+  typeId: string;              // "exemplary" etc.
+  quadrants: QuadrantDef[];
+}
 
-const QUADRANT_LABELS = [
-  { label: "소외형", x: "18%", y: "18%" },
-  { label: "모범형", x: "72%", y: "18%" },
-  { label: "수동형", x: "18%", y: "78%" },
-  { label: "순응형", x: "72%", y: "78%" },
-];
+const GRID_ORDER = ["top-left", "top-right", "bottom-left", "bottom-right"];
 
-export function FollowershipQuadrant({ result }: Props) {
-  const { activeEngagement, independentThinking, type } = result;
-  const typeInfo = TYPE_CONFIG[type] ?? TYPE_CONFIG.pragmatic;
+export function FollowershipQuadrant({ activeEngagement, independentThinking, typeId, quadrants }: Props) {
+  const currentType = quadrants.find((q) => q.id === typeId) ?? quadrants[0];
 
   // Convert scores to percentages (0-60 → 0-100%)
   const xPct = (activeEngagement / 60) * 100;
-  const yPct = 100 - (independentThinking / 60) * 100; // Invert Y for screen coords
+  const yPct = 100 - (independentThinking / 60) * 100;
+
+  // Arrange quadrants in grid order
+  const gridQuadrants = GRID_ORDER.map((area) =>
+    quadrants.find((q) => q.gridArea === area)
+  ).filter(Boolean) as QuadrantDef[];
+
+  const pragmatic = quadrants.find((q) => q.gridArea === "center");
 
   return (
     <div>
       {/* Type badge */}
-      <div className="text-center mb-4">
-        <span className="text-2xl">{typeInfo.emoji}</span>
-        <span
-          className="ml-2 text-lg font-black font-display"
-          style={{ color: typeInfo.color }}
-        >
-          {typeInfo.label} 팔로워
-        </span>
+      <div className="text-center mb-5">
+        <span className="text-3xl">{currentType.emoji}</span>
+        <div className="mt-1">
+          <span
+            className="text-xl font-black font-display"
+            style={{ color: currentType.color }}
+          >
+            {currentType.label}
+          </span>
+        </div>
+        <p className="text-xs text-ink-secondary mt-1">{currentType.shortDesc}</p>
       </div>
 
       {/* Quadrant chart */}
@@ -53,32 +62,54 @@ export function FollowershipQuadrant({ result }: Props) {
         </div>
 
         {/* Grid */}
-        <div className="absolute inset-6 border border-edge rounded-lg overflow-hidden bg-surface-sunken">
+        <div className="absolute inset-6 rounded-lg overflow-hidden">
+          {/* 4 quadrant backgrounds */}
+          <div className="absolute inset-0 grid grid-cols-2 grid-rows-2">
+            {gridQuadrants.map((q) => {
+              const isActive = q.id === typeId;
+              return (
+                <div
+                  key={q.id}
+                  className="flex flex-col items-center justify-center text-center p-1 transition-all"
+                  style={{
+                    backgroundColor: isActive ? q.bgColor : "#f8f9fa",
+                    border: `1px solid ${isActive ? q.color + "40" : "#e9ecef"}`,
+                    opacity: isActive ? 1 : 0.6,
+                  }}
+                >
+                  <span className="text-lg">{q.emoji}</span>
+                  <span
+                    className="text-[11px] font-bold mt-0.5"
+                    style={{ color: isActive ? q.color : "#adb5bd" }}
+                  >
+                    {q.label}
+                  </span>
+                  <span className="text-[9px] text-ink-muted mt-0.5 hidden sm:block">
+                    {q.shortDesc}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
           {/* Cross lines */}
-          <div className="absolute left-1/2 top-0 h-full w-px bg-edge-subtle" />
-          <div className="absolute left-0 top-1/2 h-px w-full bg-edge-subtle" />
+          <div className="absolute left-1/2 top-0 h-full w-px bg-ink/10" />
+          <div className="absolute left-0 top-1/2 h-px w-full bg-ink/10" />
 
           {/* Pragmatic center zone */}
-          <div
-            className="absolute border border-dashed border-amber-brand/30 bg-amber-brand/5 rounded"
-            style={{
-              left: `${(20 / 60) * 100}%`,
-              top: `${(1 - 40 / 60) * 100}%`,
-              width: `${(20 / 60) * 100}%`,
-              height: `${(20 / 60) * 100}%`,
-            }}
-          />
-
-          {/* Quadrant labels */}
-          {QUADRANT_LABELS.map(({ label, x, y }) => (
+          {pragmatic && (
             <div
-              key={label}
-              className="absolute text-[11px] font-bold text-ink-muted/50"
-              style={{ left: x, top: y }}
-            >
-              {label}
-            </div>
-          ))}
+              className="absolute border border-dashed rounded"
+              style={{
+                left: `${(20 / 60) * 100}%`,
+                top: `${(1 - 40 / 60) * 100}%`,
+                width: `${(20 / 60) * 100}%`,
+                height: `${(20 / 60) * 100}%`,
+                borderColor: pragmatic.color + "50",
+                backgroundColor: typeId === "pragmatic" ? pragmatic.bgColor + "60" : "transparent",
+              }}
+            />
+          )}
 
           {/* User position dot */}
           <div
@@ -86,8 +117,9 @@ export function FollowershipQuadrant({ result }: Props) {
             style={{
               left: `${xPct}%`,
               top: `${yPct}%`,
-              backgroundColor: typeInfo.color,
-              border: "3px solid white",
+              backgroundColor: "white",
+              border: `3px solid ${currentType.color}`,
+              boxShadow: `0 0 12px ${currentType.color}40`,
             }}
           />
         </div>
