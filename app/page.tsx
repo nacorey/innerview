@@ -64,25 +64,29 @@ export default function Home() {
         <div className="mx-auto max-w-4xl px-6 py-24 text-center">
           <h1 className="text-5xl sm:text-6xl font-black tracking-tight text-ink-inverse">
             <span className="relative inline-block">
-              {/* 방사형 빛 — I 위에서 부채꼴로 내리쬠 */}
+              {/* 넓은 빛 — 위에서 아래로 퍼지는 타원형 */}
               <span
-                className="absolute left-1/2 -translate-x-1/2 -top-20 w-32 h-28 pointer-events-none"
+                className="absolute left-1/2 -translate-x-1/2 -top-16 pointer-events-none"
                 style={{
-                  background: "conic-gradient(from 160deg at 50% 0%, transparent 0deg, rgba(243,156,18,0.25) 170deg, rgba(243,156,18,0.45) 180deg, rgba(243,156,18,0.25) 190deg, transparent 360deg)",
-                  maskImage: "linear-gradient(to bottom, white 20%, transparent 100%)",
-                  WebkitMaskImage: "linear-gradient(to bottom, white 20%, transparent 100%)",
+                  width: 120,
+                  height: 100,
+                  background: "radial-gradient(ellipse 60% 80% at 50% 15%, rgba(243,156,18,0.35) 0%, rgba(243,156,18,0.08) 50%, transparent 80%)",
+                  filter: "blur(8px)",
                   animation: "beamShimmer 3s ease-in-out infinite",
                 }}
               />
-              {/* 글로우 오브 — 빛의 원천 */}
+              {/* 코어 글로우 — I 주변 집중 발광 */}
               <span
-                className="absolute left-1/2 -translate-x-1/2 -top-4 w-14 h-14 rounded-full pointer-events-none"
+                className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none"
                 style={{
-                  background: "radial-gradient(circle, rgba(243,156,18,0.5) 0%, rgba(243,156,18,0.2) 40%, transparent 70%)",
+                  width: 48,
+                  height: 48,
+                  background: "radial-gradient(circle, rgba(243,156,18,0.5) 0%, transparent 70%)",
+                  filter: "blur(12px)",
                   animation: "glowPulse 3s ease-in-out infinite",
                 }}
               />
-              {/* I 글자 — 강한 빛 효과 */}
+              {/* I 글자 */}
               <span
                 className="relative text-amber-brand"
                 style={{
