@@ -3,6 +3,8 @@
 import { useParams } from "next/navigation";
 import { getToolBySlug } from "@/lib/utils/tool-loader";
 import { DiagnosticRunner } from "@/components/diagnostic/DiagnosticRunner";
+import { useAuth } from "@/components/auth/AuthProvider";
+import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 function saveResultToLocal(
@@ -33,10 +35,43 @@ function saveResultToLocal(
   }
 }
 
+async function saveResultToSupabase(
+  userId: string,
+  toolId: string,
+  result: {
+    answers: Record<number, number | Record<string, number>>;
+    scores: Record<string, number>;
+    subScores?: Record<string, { drive: number; behavioral: number; total: number }>;
+    patternType?: string;
+    completedAt: string;
+  }
+) {
+  const supabase = createClient();
+  if (!supabase) return;
+
+  const row = {
+    user_id: userId,
+    tool_id: toolId,
+    answers: result.answers as unknown as import("@/lib/types/database").Json,
+    scores: result.scores as unknown as import("@/lib/types/database").Json,
+    sub_scores: (result.subScores ?? null) as unknown as import("@/lib/types/database").Json,
+    pattern_type: result.patternType ?? null,
+    completed_at: result.completedAt,
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase.from("results") as any).insert(row);
+
+  if (error) {
+    console.error("Supabase 저장 실패:", error.message);
+  }
+}
+
 export default function ToolPage() {
   const params = useParams();
   const slug = params.slug as string;
   const config = getToolBySlug(slug);
+  const { user } = useAuth();
 
   if (!config) {
     return (
@@ -52,8 +87,15 @@ export default function ToolPage() {
   return (
     <DiagnosticRunner
       config={config}
+      userId={user?.id}
       onComplete={(result) => {
+        // 1. localStorage (항상)
         saveResultToLocal(config, result);
+
+        // 2. Supabase (로그인 시)
+        if (user) {
+          saveResultToSupabase(user.id, config.id, result);
+        }
       }}
     />
   );

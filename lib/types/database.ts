@@ -52,6 +52,9 @@ export interface Database {
           interpretations: Json;
           chart_config: Json;
           pattern_config: Json;
+          zone: string | null;
+          zone_label: string | null;
+          zone_order: number;
           is_active: boolean;
           sort_order: number;
           created_at: string;
@@ -73,6 +76,9 @@ export interface Database {
           interpretations: Json;
           chart_config?: Json;
           pattern_config?: Json;
+          zone?: string | null;
+          zone_label?: string | null;
+          zone_order?: number;
           is_active?: boolean;
           sort_order?: number;
           created_at?: string;
@@ -94,6 +100,9 @@ export interface Database {
           interpretations?: Json;
           chart_config?: Json;
           pattern_config?: Json;
+          zone?: string | null;
+          zone_label?: string | null;
+          zone_order?: number;
           is_active?: boolean;
           sort_order?: number;
           created_at?: string;
@@ -190,6 +199,7 @@ export interface Database {
           workshop_id: string | null;
           answers: Json;
           scores: Json;
+          sub_scores: Json | null;
           pattern_type: string | null;
           completed_at: string;
         };
@@ -201,6 +211,7 @@ export interface Database {
           workshop_id?: string | null;
           answers: Json;
           scores: Json;
+          sub_scores?: Json | null;
           pattern_type?: string | null;
           completed_at?: string;
         };
@@ -212,6 +223,7 @@ export interface Database {
           workshop_id?: string | null;
           answers?: Json;
           scores?: Json;
+          sub_scores?: Json | null;
           pattern_type?: string | null;
           completed_at?: string;
         };
