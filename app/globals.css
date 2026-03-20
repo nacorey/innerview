@@ -97,6 +97,16 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; filter: blur(12px); }
+  50% { opacity: 0.85; filter: blur(16px); }
+}
+
+@keyframes beamShimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
 /* ─── Print ─── */
 @media print {
   body {

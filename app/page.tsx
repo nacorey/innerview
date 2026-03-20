@@ -63,7 +63,34 @@ export default function Home() {
       <section className="relative bg-surface-dark grain">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center">
           <h1 className="text-5xl sm:text-6xl font-black tracking-tight text-ink-inverse">
-            InnerView
+            <span className="relative inline-block">
+              {/* 빛줄기 — I 위에서 아래로 내려오는 빛 */}
+              <span
+                className="absolute left-1/2 -translate-x-1/2 -top-14 w-[1.5px] h-12 pointer-events-none"
+                style={{
+                  background: "linear-gradient(to bottom, transparent 0%, rgba(243,156,18,0.15) 40%, rgba(243,156,18,0.5) 100%)",
+                  animation: "beamShimmer 3s ease-in-out infinite",
+                }}
+              />
+              {/* 글로우 오브 — I 위 빛의 원천 */}
+              <span
+                className="absolute left-1/2 -translate-x-1/2 -top-3 w-10 h-10 rounded-full pointer-events-none"
+                style={{
+                  background: "radial-gradient(circle, rgba(243,156,18,0.35) 0%, transparent 70%)",
+                  animation: "glowPulse 3s ease-in-out infinite",
+                }}
+              />
+              {/* I 글자 — 따뜻한 빛 효과 */}
+              <span
+                className="relative text-amber-brand"
+                style={{
+                  textShadow: "0 0 24px rgba(243,156,18,0.4), 0 0 48px rgba(243,156,18,0.15), 0 2px 4px rgba(243,156,18,0.3)",
+                }}
+              >
+                I
+              </span>
+            </span>
+            nnerView
           </h1>
           <p className="mt-3 text-sm text-ink-muted tracking-[6px] uppercase font-display">
             나를 들여다보는 시간
@@ -71,13 +98,24 @@ export default function Home() {
           <p className="mt-5 text-lg text-ink-inverse/60">
             BEAM 프레임워크로 나를 더 깊이 이해하세요
           </p>
-          <div className="mt-6 flex justify-center gap-3 text-xs">
+
+          {/* BEAM 4항목 — 2×2 그리드 */}
+          <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 max-w-md mx-auto">
             {ZONE_ORDER.map((z) => {
               const info = ZONE_CONFIG[z];
+              const colors = ZONE_COLORS[z];
               return (
-                <span key={z} className="rounded-full border border-ink-inverse/20 px-3 py-1 text-ink-inverse/60">
-                  <strong className="text-ink-inverse/80">{info.beam}</strong> {info.labelKo} — {info.questionKo}
-                </span>
+                <div key={z} className="text-center">
+                  <div className="flex items-center justify-center gap-1.5">
+                    <span
+                      className={`inline-flex items-center justify-center w-5 h-5 rounded text-[10px] font-black text-white ${colors.accent}`}
+                    >
+                      {info.beam}
+                    </span>
+                    <span className="text-sm font-bold text-ink-inverse/90">{info.labelKo}</span>
+                  </div>
+                  <p className="text-xs text-ink-inverse/40 mt-0.5">{info.questionKo}</p>
+                </div>
               );
             })}
           </div>
