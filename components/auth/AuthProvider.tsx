@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User, Session } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 interface AuthContext {
   user: User | null;
@@ -39,27 +40,57 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
+    let isMounted = true;
+
+    // 프로필 조회 헬퍼 (실패해도 안전)
+    async function fetchProfile(client: SupabaseClient, userId: string) {
+      try {
+        const { data } = await client
+          .from("profiles")
+          .select("role, display_name, avatar_url")
+          .eq("id", userId)
+          .single();
+        if (isMounted) setProfile(data as AuthContext["profile"]);
+      } catch {
+        if (isMounted) setProfile(null);
+      }
+    }
+
+    // 1) getSession(): 메모리/스토리지에서 즉시 세션 반환 → isLoading 해제 보장
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!isMounted) return;
+      setSession(session);
+      setUser(session?.user ?? null);
+      setIsLoading(false);
+      if (session?.user) {
+        fetchProfile(supabase, session.user.id);
+      }
+    }).catch(() => {
+      if (isMounted) setIsLoading(false);
+    });
+
+    // 2) onAuthStateChange: 로그인/로그아웃/토큰 갱신 시 후속 반영
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      async (event, session) => {
+        if (!isMounted) return;
+        // getSession()이 이미 초기 상태를 처리했으므로 INITIAL_SESSION은 건너뜀
+        if (event === "INITIAL_SESSION") return;
+
         setSession(session);
         setUser(session?.user ?? null);
 
         if (session?.user) {
-          const { data } = await supabase
-            .from("profiles")
-            .select("role, display_name, avatar_url")
-            .eq("id", session.user.id)
-            .single();
-          setProfile(data as AuthContext["profile"]);
+          fetchProfile(supabase, session.user.id);
         } else {
           setProfile(null);
         }
-
-        setIsLoading(false);
       }
     );
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signOut = async () => {
